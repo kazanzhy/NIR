@@ -10,10 +10,11 @@ class Firstname(models.Model):
     """
     name = models.CharField(max_length=32)
     def __str__(self):
-        """
-        String for representing the Model object.
-        """
         return self.name
+    class Meta:
+        verbose_name = "Ім'я"
+        verbose_name_plural = "Імена"
+
 
 class Patronymic(models.Model):
     """
@@ -21,10 +22,11 @@ class Patronymic(models.Model):
     """
     name = models.CharField(max_length=32)
     def __str__(self):
-        """
-        String for representing the Model object.
-        """
         return self.name
+    class Meta:
+        verbose_name = "По-батькові"
+        verbose_name_plural = "По-батькові"
+
 
 class Lastname(models.Model):
     """
@@ -32,10 +34,11 @@ class Lastname(models.Model):
     """
     name = models.CharField(max_length=32)
     def __str__(self):
-        """
-        String for representing the Model object.
-        """
         return self.name
+    class Meta:
+        verbose_name = "Фамілія"
+        verbose_name_plural = "Фамілії"
+
 
 class Region(models.Model):
     """
@@ -43,10 +46,11 @@ class Region(models.Model):
     """
     region = models.CharField(max_length=32)
     def __str__(self):
-        """
-        String for representing the Model object.
-        """
         return self.region
+    class Meta:
+        verbose_name = "Область"
+        verbose_name_plural = "Області"
+
 
 class District(models.Model):
     """
@@ -55,10 +59,11 @@ class District(models.Model):
     district = models.CharField(max_length=32)
     region = models.ForeignKey(Region, on_delete=models.SET_NULL, null=True, blank=True)
     def __str__(self):
-        """
-        String for representing the Model object.
-        """
         return self.district
+    class Meta:
+        verbose_name = "Район"
+        verbose_name_plural = "Райони"
+
 
 class Locality(models.Model):
     """
@@ -67,10 +72,11 @@ class Locality(models.Model):
     locality = models.CharField(max_length=32)
     district = models.ForeignKey(District, on_delete=models.SET_NULL, null=True, blank=True)
     def __str__(self):
-        """
-        String for representing the Model object.
-        """
         return self.locality
+    class Meta:
+        verbose_name = "Населений пункт"
+        verbose_name_plural = "Населені пункти"
+
 
 class Clinic(models.Model):
     """
@@ -79,10 +85,11 @@ class Clinic(models.Model):
     clinic = models.CharField(max_length=64)
     locality = models.ForeignKey(Locality, on_delete=models.SET_NULL, null=True, blank=True)
     def __str__(self):
-        """
-        String for representing the Model object.
-        """
         return self.clinic
+    class Meta:
+        verbose_name = "Клініка"
+        verbose_name_plural = "Клініки"
+
 
 class Patient(models.Model):
     """
@@ -91,13 +98,15 @@ class Patient(models.Model):
     firstname = models.ForeignKey(Firstname, on_delete=models.SET_NULL, null=True, blank=True)
     patronymic = models.ForeignKey(Patronymic, on_delete=models.SET_NULL, null=True, blank=True)
     lastname = models.ForeignKey(Lastname, on_delete=models.SET_NULL, null=True, blank=True)
+    phone = models.CharField(max_length=17, null=True, blank=True)
     birth = models.DateField(null=True, blank=True)
     sex = models.BooleanField() # 1 for Male and 0 for Female
     def __str__(self):
-        """
-        String for representing the Model object.
-        """
         return '{} {} {}, {}'.format(self.firstname, self.patronymic, self.lastname, self.birth)
+    class Meta:
+        verbose_name = "Пацієнт"
+        verbose_name_plural = "Пацієнти"
+
 
 class Doctor(models.Model):
     """
@@ -108,10 +117,11 @@ class Doctor(models.Model):
     lastname = models.ForeignKey(Lastname, on_delete=models.SET_NULL, null=True, blank=True)
     clinic = models.ForeignKey(Clinic, on_delete=models.SET_NULL, null=True, blank=True)
     def __str__(self):
-        """
-        String for representing the Model object.
-        """
         return 'Dr. {} {} {} ({})'.format(self.firstname, self.patronymic, self.lastname, self.clinic)
+    class Meta:
+        verbose_name = "Лікар"
+        verbose_name_plural = "Лікарі"
+
 
 class Disease(models.Model):
     """
@@ -119,36 +129,26 @@ class Disease(models.Model):
     """
     disease = models.CharField(max_length=32)
     def __str__(self):
-        """
-        String for representing the Model object.
-        """
         return self.disease
-
-class Manufacturer(models.Model):
-    """
-    Model representing a Manufacturer.
-    """
-    manufacturer = models.CharField(max_length=64)
-    country = models.CharField(max_length=32)
-    def __str__(self):
-        """
-        String for representing the Model object.
-        """
-        return '{} ({})'.format(self.manufacturer, self.country)
+    class Meta:
+        verbose_name = "Захворювання"
+        verbose_name_plural = "Захворювання"
 
 
 class Vaccine(models.Model):
     """
     Model representing a Vaccine.
     """
-    vaccine = models.CharField(max_length=32)
+    vaccine = models.CharField(max_length=64, null=True, blank=True)
+    manufacturer = models.CharField(max_length=64, null=True, blank=True)
+    country = models.CharField(max_length=32, null=True, blank=True)
+    info =  models.CharField(max_length=256, null=True, blank=True)
     disease = models.ManyToManyField(Disease, null=True, blank=True)
-    manufacturer = models.ForeignKey(Manufacturer, on_delete=models.SET_NULL, null=True, blank=True)
     def __str__(self):
-        """
-        String for representing the Model object.
-        """
         return self.vaccine
+    class Meta:
+        verbose_name = "Вакцина"
+        verbose_name_plural = "Вакцини"
 
 
 class Series(models.Model):
@@ -159,10 +159,10 @@ class Series(models.Model):
     vaccine = models.ForeignKey(Vaccine, on_delete=models.SET_NULL, null=True, blank=True)
     expiration = models.DateField(null=True, blank=True)
     def __str__(self):
-        """
-        String for representing the Model object.
-        """
         return self.series
+    class Meta:
+        verbose_name = "Серія"
+        verbose_name_plural = "Серії"
 
 
 class Logbook(models.Model):
@@ -174,11 +174,10 @@ class Logbook(models.Model):
     doses = models.IntegerField(null=True, blank=True)
     date = models.DateField(default=timezone.localdate)
     def __str__(self):
-        """
-        String for representing the Model object.
-        """
         return '{}: {} #{}. {}'.format(self.clinic, self.series, self.doses, self.date)
-
+    class Meta:
+        verbose_name = "Запис у журналі"
+        verbose_name_plural = "Журнал обліку"
 
 class Immunization(models.Model):
     """
@@ -190,11 +189,10 @@ class Immunization(models.Model):
     dose = models.IntegerField(default=1)
     date = models.DateField(default=timezone.localdate)
     def __str__(self):
-        """
-        String for representing the Model object.
-        """
         return '{} - {} - {}'.format(self.patient, self.series, self.doctor)
-
+    class Meta:
+        verbose_name = "Щеплення"
+        verbose_name_plural = "Щеплення"
 
 
 

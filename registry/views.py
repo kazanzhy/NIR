@@ -1,18 +1,33 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from django.views import generic
+from django.urls import reverse
+from django.contrib.auth.decorators import login_required, permission_required
 
-# Create your views here.
+from .models import *
+from .forms import *
 
-def home(request):
+def clinics(request):
+    pass
+def clinic(request, id):
+    pass
+def clinic_add(request):
+    pass
+def clinic_update(request):
+    pass
+def clinic_delete(request):
+    pass
+
+
+
+
+def patients(request):
     pass
 
 def doctors(request):
     pass
 
-def patients(request):
-    pass
 
-def clinics(request):
-    pass
+
 
 def immunizations(request):
     pass
