@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block title %}
+        <title>National immunization registry</title>
+    {% endblock %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+    {% load static %} 
+    <!-- Добавление дополнительного статического CSS файла 
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">  
+    -->
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-default">
+<div class="container-fluid">
+    <div class="navbar-header"><a class="navbar-brand" href="#">ImmReg</a></div>
+    <ul class="nav navbar-nav">
+        <li class="active"><a href="{% url 'home' %}">Головна</a></li>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Для лікарів <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a href="#">Клініки</a></li>
+                <li><a href="#">Лікарі</a></li>
+                <li><a href="#">Пацієнти</a></li>
+                <li><a href="#">Щеплення</a></li>
+            </ul>
+        </li>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Для пацієнтів <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a href="#">Календар</a></li>
+                <li><a href="#">Вакцини</a></li>
+                <li><a href="{% url 'info_clinics' %}">Клініки</a></li>
+            </ul>
+        </li>
+        <li><a href="{% url 'about' %}">Про проект</a></li>
+    </ul>
+
+    <ul class="nav navbar-nav navbar-right">
+        {% if request.user.username %}
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Профіль <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+            <li><a href="">Мій профіль</a></li>
+            <li><a href="">Редагувати</a></li>
+            <li><a href="">Сповіщення</a></li>
+            </ul>
+        </li>
+        <li><a href="/accounts/logout/"><span class="glyphicon glyphicon-log-out"></span> Вийти</a></li>  
+        {% else %}    
+        <li><a href="/accounts/login/"><span class="glyphicon glyphicon-log-in"></span> Увійти</a></li>
+        <li><a href="/accounts/signup/"><span class="glyphicon glyphicon-user"></span> Зареєструватись</a></li>
+        {% endif %}
+    </ul>
+</div>
+</nav> 
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-10 ">{% block content %}{% endblock %}</div>
+            <div class="col-sm-2"></div>
+        </div>
+    </div>
+
+<hr>
+
+</body>
+</html>

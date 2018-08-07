@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <title>Реєстр іммунізації - головна</title>
+{% endblock %}
+
+{% block content %}
+
+    <h1>Clinics</h1>
+
+<ul>
+{% for clinic in clinics %}
+    <li>{{ clinic.clinic }} {{ clinic.locality }}</li>
+{% endfor %}
+</ul>
+
+{% endblock %}
+
+

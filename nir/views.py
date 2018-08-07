@@ -1,5 +1,9 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 
 def home(request):
-    context = {'message': 'Hello Dima'} 
+    context = {} 
     return render(request, 'home.html', context)
+
+def about(request):
+    context = {} 
+    return render(request, 'about.html', context)
