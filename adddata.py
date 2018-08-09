@@ -22,25 +22,6 @@ for patro in inp:
     obj.name = patro
     obj.save()
 inp.close()
-'''
-inp = open('data/vaccines')
-print('Adding vaccines')
-for data in inp:
-    data = data.strip().split(',')
-    vac = Vaccine()
-    vac.vaccine = data[2]
-    vac.manufacturer = data[1]
-    vac.country = data[0]
-    vac.save()
-inp.close()
-
-inp = open('data/diseases')
-print('Adding diseases')
-for disease in inp:
-    obj = Disease()
-    obj.disease = disease
-    obj.save()
-inp.close()
 
 inp = open('data/localities')
 print('Adding localities')
@@ -67,6 +48,27 @@ for data in inp:
         loc.district = dis_id
         loc.save()
 inp.close()
+'''
+inp = open('data/vaccines')
+print('Adding vaccines')
+for data in inp:
+    data = data.strip().split(',')
+    vac = Vaccine()
+    vac.vaccine = data[2]
+    vac.manufacturer = data[1]
+    vac.country = data[0]
+    vac.save()
+inp.close()
+
+inp = open('data/diseases')
+print('Adding diseases')
+for disease in inp:
+    obj = Disease()
+    obj.disease = disease
+    obj.save()
+inp.close()
+
+
 
 
 

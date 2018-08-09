@@ -86,6 +86,13 @@ class Clinic(models.Model):
     locality = models.ForeignKey(Locality, on_delete=models.SET_NULL, null=True, blank=True)
     def __str__(self):
         return self.clinic
+
+    def get_absolute_url(self):
+        return reverse('info_clinic', args=[str(self.id)])
+
+    def get_info_url(self):
+        return reverse('info_clinic', args=[str(self.id)])
+
     class Meta:
         verbose_name = "Клініка"
         verbose_name_plural = "Клініки"
@@ -128,6 +135,7 @@ class Disease(models.Model):
     Model representing a Disease.
     """
     disease = models.CharField(max_length=32)
+    disease_en = models.CharField(max_length=32)
     def __str__(self):
         return self.disease
     class Meta:
@@ -140,12 +148,19 @@ class Vaccine(models.Model):
     Model representing a Vaccine.
     """
     vaccine = models.CharField(max_length=64, null=True, blank=True)
-    manufacturer = models.CharField(max_length=64, null=True, blank=True)
-    country = models.CharField(max_length=32, null=True, blank=True)
+    vaccine_en = models.CharField(max_length=64, null=True, blank=True)
+    manufacturer = models.CharField(max_length=32, null=True, blank=True)
+    manufacturer_en = models.CharField(max_length=32, null=True, blank=True)
+    country = models.CharField(max_length=16, null=True, blank=True)
+    country_en = models.CharField(max_length=16, null=True, blank=True)
     info =  models.CharField(max_length=256, null=True, blank=True)
     disease = models.ManyToManyField(Disease, null=True, blank=True)
     def __str__(self):
         return self.vaccine
+
+    def get_info_url(self):
+        return reverse('info_vaccine', args=[str(self.id)])
+
     class Meta:
         verbose_name = "Вакцина"
         verbose_name_plural = "Вакцини"

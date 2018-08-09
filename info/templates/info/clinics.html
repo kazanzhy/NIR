@@ -6,14 +6,24 @@
 
 {% block content %}
 
-    <h1>Clinics</h1>
+    <h1>Клініки</h1>
 
-<ul>
-{% for clinic in clinics %}
-    <li>{{ clinic.clinic }} {{ clinic.locality }}</li>
-{% endfor %}
-</ul>
-
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Клініка</th>
+        <th>Населений пункт</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for clinic in clinics %}
+    <tr>
+        <td><a href="{{ clinic.get_info_url }}">{{ clinic.clinic}}</a></td>
+        <td>{{ clinic.locality }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
 {% endblock %}
 
 

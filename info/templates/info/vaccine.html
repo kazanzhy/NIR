@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <title>Реєстр іммунізації - головна</title>
+{% endblock %}
+
+{% block content %}
+
+    <h2>{{ vaccine.vaccine }}</h2>
+
+<p>Виробник: {{ vaccine.manufacturer }}</p>
+
+<p>Країна походження: {{ vaccine.country }}</p>
+
+<p>Профілактика хвороб:</p>
+<p><ul>
+    {% for disease in vaccine.disease.all %}
+    <li>{{ disease }}</li>
+    {% endfor %}
+</ul></p>
+
+<p>Інформація:</p>
+<p>{{ vaccine.info }}</p>
+{% endblock %}
+
