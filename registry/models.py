@@ -154,7 +154,7 @@ class Vaccine(models.Model):
     country = models.CharField(max_length=16, null=True, blank=True)
     country_en = models.CharField(max_length=16, null=True, blank=True)
     info =  models.CharField(max_length=256, null=True, blank=True)
-    disease = models.ManyToManyField(Disease, null=True, blank=True)
+    disease = models.ManyToManyField(Disease, blank=True)
     def __str__(self):
         return self.vaccine
 

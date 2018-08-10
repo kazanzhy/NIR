@@ -52,21 +52,33 @@ inp.close()
 inp = open('data/vaccines')
 print('Adding vaccines')
 for data in inp:
+    if '#' in data: continue
     data = data.strip().split(',')
+    c = data[0].split('/')
+    m = data[1].split('/')
+    v = data[2].split('/')
+    ds = [d.split('/') for d in data[3:]]
     vac = Vaccine()
-    vac.vaccine = data[2]
-    vac.manufacturer = data[1]
-    vac.country = data[0]
+    vac.vaccine = v[0]
+    vac.vaccine_en = v[1]
+    vac.manufacturer = m[0]
+    vac.manufacturer_en = m[1]
+    vac.country = c[0]
+    vac.country_en = c[1]
+    vac.save()
+    for d in ds:
+        q = Disease.objects.filter(disease=d[0], disease_en=d[1])
+        if len(q) == 0:
+            dis = Disease()
+            dis.disease = d[0]
+            dis.disease_en = d[1]
+            dis.save()
+        dis_id = Disease.objects.get(disease=d[0], disease_en=d[1])
+        vac.disease.add(dis_id)
     vac.save()
 inp.close()
 
-inp = open('data/diseases')
-print('Adding diseases')
-for disease in inp:
-    obj = Disease()
-    obj.disease = disease
-    obj.save()
-inp.close()
+
 
 
 
