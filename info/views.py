@@ -10,8 +10,22 @@ def calendar(request):
 
 
 def clinics(request):
-    clinics = Clinic.objects.all()
-    context = {'clinics': clinics}
+    if request.method == 'POST':
+        form = ClinicsSearchForm(request.POST)
+        if form.is_valid():
+            if form.cleaned_data['locality'] != '':
+                clinics = Clinic.objects.filter(locality__locality=form.cleaned_data['locality'])
+            elif form.cleaned_data['district'] != '':
+                clinics = Clinic.objects.filter(locality__district__district=form.cleaned_data['district'])
+            elif form.cleaned_data['region'] != '':
+                form.fields['district'].queryset = District.objects.filter(region__region = form.cleaned_data['region'])
+                clinics = Clinic.objects.filter(licality__district__region__region = form.cleaned_data['region'])
+            else:
+                clinics = Clinic.objects.all()
+    else:
+        form = ClinicsSearchForm()
+        clinics = Clinic.objects.all()
+    context = {'clinics': clinics, 'form': form}
     return render(request, 'info/clinics.html', context)
 
 
