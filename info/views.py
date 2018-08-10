@@ -16,6 +16,7 @@ def clinics(request):
             if form.cleaned_data['locality'] != '':
                 clinics = Clinic.objects.filter(locality__locality=form.cleaned_data['locality'])
             elif form.cleaned_data['district'] != '':
+                form.fields['locality'].queryset = Locality.objects.filter(district__district = form.cleaned_data['district'])
                 clinics = Clinic.objects.filter(locality__district__district=form.cleaned_data['district'])
             elif form.cleaned_data['region'] != '':
                 form.fields['district'].queryset = District.objects.filter(region__region = form.cleaned_data['region'])
