@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 
 from registry.models import Region, District, Locality, Clinic, Disease, Vaccine, Logbook
+from .forms import ClinicsSearchForm, VaccinesSearchForm
 
 
 def calendar(request):
@@ -13,14 +14,15 @@ def clinics(request):
     if request.method == 'POST':
         form = ClinicsSearchForm(request.POST)
         if form.is_valid():
-            if form.cleaned_data['locality'] != '':
-                clinics = Clinic.objects.filter(locality__locality=form.cleaned_data['locality'])
-            elif form.cleaned_data['district'] != '':
-                form.fields['locality'].queryset = Locality.objects.filter(district__district = form.cleaned_data['district'])
-                clinics = Clinic.objects.filter(locality__district__district=form.cleaned_data['district'])
-            elif form.cleaned_data['region'] != '':
-                form.fields['district'].queryset = District.objects.filter(region__region = form.cleaned_data['region'])
-                clinics = Clinic.objects.filter(licality__district__region__region = form.cleaned_data['region'])
+            if form.cleaned_data['region'] is not None:
+                form.fields['district'].queryset = District.objects.filter(region = form.cleaned_data['region'])
+                form.fields['locality'].queryset = Locality.objects.filter(district__region = form.cleaned_data['region'])
+                clinics = Clinic.objects.filter(locality__district__region = form.cleaned_data['region'])
+            elif form.cleaned_data['district'] is not None:
+                form.fields['locality'].queryset = Locality.objects.filter(district = form.cleaned_data['district'])
+                clinics = Clinic.objects.filter(locality__district = form.cleaned_data['district'])
+            elif form.cleaned_data['locality'] is not None:
+                clinics = Clinic.objects.filter(locality = form.cleaned_data['locality'])
             else:
                 clinics = Clinic.objects.all()
     else:
@@ -32,13 +34,23 @@ def clinics(request):
 
 def clinic(request, id):
     clinic = get_object_or_404(Clinic, pk=id)
-    context = {'clinic': clinic}
+    vaccines = Logbook.objects.filter(clinic=clinic)
+    context = {'clinic': clinic, 'vaccines': vaccines}
     return render(request, 'info/clinic.html', context)
 
 
 def vaccines(request):
-    vaccines = Vaccine.objects.all()
-    context = {'vaccines': vaccines}
+    if request.method == 'POST':
+        form = VaccinesSearchForm(request.POST)
+        if form.is_valid():
+            if form.cleaned_data['disease'] is not None:
+                vaccines = Vaccine.objects.filter(disease = form.cleaned_data['disease'])
+            else:
+                vaccines = Vaccine.objects.all()
+    else:
+        form = VaccinesSearchForm()
+        vaccines = Vaccine.objects.all()
+    context = {'vaccines': vaccines, 'form': form}
     return render(request, 'info/vaccines.html', context)
 
 def vaccine(request, id):

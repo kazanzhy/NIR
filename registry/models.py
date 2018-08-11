@@ -50,6 +50,7 @@ class Region(models.Model):
     class Meta:
         verbose_name = "Область"
         verbose_name_plural = "Області"
+        ordering = ['region']
 
 
 class District(models.Model):
@@ -63,6 +64,7 @@ class District(models.Model):
     class Meta:
         verbose_name = "Район"
         verbose_name_plural = "Райони"
+        ordering = ['district']
 
 
 class Locality(models.Model):
@@ -76,6 +78,7 @@ class Locality(models.Model):
     class Meta:
         verbose_name = "Населений пункт"
         verbose_name_plural = "Населені пункти"
+        ordering = ['locality']
 
 
 class Clinic(models.Model):
@@ -96,6 +99,7 @@ class Clinic(models.Model):
     class Meta:
         verbose_name = "Клініка"
         verbose_name_plural = "Клініки"
+        ordering = ['clinic']
 
 
 class Patient(models.Model):
@@ -141,6 +145,7 @@ class Disease(models.Model):
     class Meta:
         verbose_name = "Захворювання"
         verbose_name_plural = "Захворювання"
+        ordering = ['disease']
 
 
 class Vaccine(models.Model):
@@ -164,6 +169,7 @@ class Vaccine(models.Model):
     class Meta:
         verbose_name = "Вакцина"
         verbose_name_plural = "Вакцини"
+        ordering = ['vaccine']
 
 
 class Series(models.Model):
@@ -193,6 +199,7 @@ class Logbook(models.Model):
     class Meta:
         verbose_name = "Запис у журналі"
         verbose_name_plural = "Журнал обліку"
+
 
 class Immunization(models.Model):
     """

@@ -11,14 +11,18 @@
 <form action="" method="post">
     {% csrf_token %}
     {{ form }}
-    <input type="submit" value="Submit">
+    <input type="submit" value="Фільтрувати">
 </form>
+
+<p></p>
 
 <table class="table table-bordered">
     <thead>
     <tr>
         <th>Клініка</th>
         <th>Населений пункт</th>
+        <th>Район</th>
+        <th>Область</th>
     </tr>
     </thead>
     <tbody>
@@ -26,10 +30,12 @@
     <tr>
         <td><a href="{{ clinic.get_info_url }}">{{ clinic.clinic}}</a></td>
         <td>{{ clinic.locality }}</td>
+        <td>{{ clinic.locality.district }}</td>
+        <td>{{ clinic.locality.district.region }}</td>
     </tr>
     {% endfor %}
     </tbody>
-  </table>
+</table>
 {% endblock %}
 
 

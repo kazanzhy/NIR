@@ -123,4 +123,5 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     'info/static',
     'registry/static',
+    'static',
 ]

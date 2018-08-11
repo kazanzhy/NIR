@@ -9,8 +9,33 @@
     <h2>{{ clinic.clinic }}</h2>
 
 <p>Населений пункт: {{ clinic.locality }}</p>
-<p>Район:</p>
-<p>Область:</p>
+<p>Район: {{ clinic.locality.district }}</p>
+<p>Область: {{ clinic.locality.district.region }}</p>
+
+<p></p>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Вакцина</th>
+        <th>Серія</th>
+        <th>Кількість доз</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for vaccine in vaccines %}
+    <tr>
+        <td><a href="{{ vaccine.series.vaccine.get_info_url }}">{{ vaccine.series.vaccine }}</a></td>
+        <td>{{ vaccine.series }}</td>
+        <td>{{ vaccine.doses }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+
+
+
 
 {% endblock %}
 
