@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
+from django.core.paginator import Paginator
 
 from registry.models import Region, District, Locality, Clinic, Disease, Vaccine, Logbook
 from .forms import ClinicsSearchForm, VaccinesSearchForm
@@ -14,20 +15,22 @@ def clinics(request):
     if request.method == 'POST':
         form = ClinicsSearchForm(request.POST)
         if form.is_valid():
-            if form.cleaned_data['region'] is not None:
-                form.fields['district'].queryset = District.objects.filter(region = form.cleaned_data['region'])
-                form.fields['locality'].queryset = Locality.objects.filter(district__region = form.cleaned_data['region'])
-                clinics = Clinic.objects.filter(locality__district__region = form.cleaned_data['region'])
+            if form.cleaned_data['locality'] is not None:
+                clinics = Clinic.objects.filter(locality = form.cleaned_data['locality'])
             elif form.cleaned_data['district'] is not None:
                 form.fields['locality'].queryset = Locality.objects.filter(district = form.cleaned_data['district'])
                 clinics = Clinic.objects.filter(locality__district = form.cleaned_data['district'])
-            elif form.cleaned_data['locality'] is not None:
-                clinics = Clinic.objects.filter(locality = form.cleaned_data['locality'])
+            elif form.cleaned_data['region'] is not None:
+                form.fields['district'].queryset = District.objects.filter(region = form.cleaned_data['region'])
+                form.fields['locality'].queryset = Locality.objects.filter(district__region = form.cleaned_data['region'])
+                clinics = Clinic.objects.filter(locality__district__region = form.cleaned_data['region'])
             else:
                 clinics = Clinic.objects.all()
     else:
         form = ClinicsSearchForm()
         clinics = Clinic.objects.all()
+    page = request.GET.get('page', 1)
+    pages = Paginator(clinics, 20)
     context = {'clinics': clinics, 'form': form}
     return render(request, 'info/clinics.html', context)
 

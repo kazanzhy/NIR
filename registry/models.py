@@ -2,13 +2,15 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.utils import timezone
+from django.dispatch import receiver
+
 
 
 class Firstname(models.Model):
     """
     Model representing a First name.
     """
-    name = models.CharField(max_length=32)
+    firstname = models.CharField(max_length=32)
     def __str__(self):
         return self.name
     class Meta:
@@ -20,7 +22,7 @@ class Patronymic(models.Model):
     """
     Model representing a Patronymic name.
     """
-    name = models.CharField(max_length=32)
+    patronymic = models.CharField(max_length=32)
     def __str__(self):
         return self.name
     class Meta:
@@ -32,7 +34,7 @@ class Lastname(models.Model):
     """
     Model representing a Last name.
     """
-    name = models.CharField(max_length=32)
+    lastname = models.CharField(max_length=32)
     def __str__(self):
         return self.name
     class Meta:
@@ -217,6 +219,31 @@ class Immunization(models.Model):
         verbose_name_plural = "Щеплення"
 
 
+class Profile(models.Model):
+    """
+    Model representing user
+    """
+    user = models.OneToOneField(User, on_delete=models.CASCADE) # Standart User model
+    region = models.ForeignKey(Region, on_delete=models.SET_NULL, null=True, blank=True)
+    district = models.ForeignKey(District, on_delete=models.SET_NULL, null=True, blank=True)
+    locality = models.ForeignKey(Locality, on_delete=models.SET_NULL, null=True, blank=True)
+    clinic = models.ForeignKey(Clinic, on_delete=models.SET_NULL, null=True, blank=True)
+    is_approved = models.BooleanField(default=False)
+    def __str__(self):
+        return self.user
+    class Meta:
+        verbose_name = "Профіль"
+        verbose_name_plural = "Профілі"
+'''
+# This block for automated creation of profile-instance when new user registrated 
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
+'''
 
 
 

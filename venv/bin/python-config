@@ -1,4 +1,4 @@
-#!/home/sirius/git/NIR/venv/bin/python
+#!/home/sirius/git/NRI/venv/bin/python
 
 import sys
 import getopt
