@@ -15,7 +15,11 @@ def clinics(request):
 def clinic_add(request):
     pass
 def clinic(request, id):
-    pass
+    clinic = get_object_or_404(Clinic, pk=id)
+    vaccines = Logbook.objects.filter(clinic=clinic)
+    context = {'clinic': clinic, 'vaccines': vaccines}
+    return render(request, 'info/clinic.html', context)
+
 def clinic_update(request, id):
     pass
 def clinic_delete(request, id):
