@@ -92,7 +92,7 @@ class Clinic(models.Model):
     def __str__(self):
         return self.clinic
 
-    def get_absolute_url(self):
+    def get_registry_url(self):
         return reverse('info_clinic', args=[str(self.id)])
 
     def get_info_url(self):
@@ -131,6 +131,8 @@ class Doctor(models.Model):
     clinic = models.ForeignKey(Clinic, on_delete=models.SET_NULL, null=True, blank=True)
     def __str__(self):
         return 'Dr. {} {} {} ({})'.format(self.firstname, self.patronymic, self.lastname, self.clinic)
+    def get_registry_url(self):
+        return reverse('clinic', args=[str(self.id)])
     class Meta:
         verbose_name = "Лікар"
         verbose_name_plural = "Лікарі"
