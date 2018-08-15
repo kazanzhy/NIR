@@ -28,7 +28,7 @@
     <tbody>
     {% for clinic in clinics %}
     <tr>
-        <td><a href="{{ clinic.get_info_url }}">{{ clinic.clinic}}</a></td>
+        <td><a href="{{ clinic.get_registry_url }}">{{ clinic.clinic }}</a></td>
         <td>{{ clinic.locality }}</td>
         <td>{{ clinic.locality.district }}</td>
         <td>{{ clinic.locality.district.region }}</td>
