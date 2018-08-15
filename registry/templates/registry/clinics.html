@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <title>Для лікарів - клініки</title>
+{% endblock %}
+
+{% block content %}
+
+    <h1>Клініки</h1>
+
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Фільтрувати">
+</form>
+
+<p></p>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Клініка</th>
+        <th>Населений пункт</th>
+        <th>Район</th>
+        <th>Область</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for clinic in clinics %}
+    <tr>
+        <td><a href="{{ clinic.get_registry_url }}">{{ clinic.clinic }}</a></td>
+        <td>{{ clinic.locality }}</td>
+        <td>{{ clinic.locality.district }}</td>
+        <td>{{ clinic.locality.district.region }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

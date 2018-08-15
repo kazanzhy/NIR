@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.core.paginator import Paginator
 
 from registry.models import Region, District, Locality, Clinic, Disease, Vaccine, Logbook
-from .forms import ClinicsSearchForm, VaccinesSearchForm
+from registry.forms import ClinicsSearchForm, VaccinesSearchForm
 
 
 def calendar(request):

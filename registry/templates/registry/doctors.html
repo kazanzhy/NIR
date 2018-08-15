@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <title>Для лікарів - лікарі</title>
+{% endblock %}
+
+{% block content %}
+
+    <h1>Лікарі</h1>
+
+<p></p>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Фамілія</th>
+        <th>Ім'я</th>
+        <th>По-батькові</th>
+        <th>Клініка</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for doctor in doctors %}
+    <tr>
+        <td><a href="{{ doctor.get_registry_url }}">{{ doctor.firstname }}</a></td>
+        <td>{{ doctor.lastname }}</td>
+        <td>{{ doctor.patronymic }}</td>
+        <td>{{ doctor.locality.district.region }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
