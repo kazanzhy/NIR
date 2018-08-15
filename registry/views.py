@@ -47,7 +47,9 @@ def immunizations(request):
     pass
 def immunization(request, id):
     pass
-def immunization_add(request):
+def immunization_add_new(request):
+    pass
+def immunization_add_old(request):
     pass
 def immunization_update(request, id):
     pass

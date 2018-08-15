@@ -12,7 +12,7 @@ class Firstname(models.Model):
     """
     firstname = models.CharField(max_length=32)
     def __str__(self):
-        return self.name
+        return self.firstname
     class Meta:
         verbose_name = "Ім'я"
         verbose_name_plural = "Імена"
@@ -24,7 +24,7 @@ class Patronymic(models.Model):
     """
     patronymic = models.CharField(max_length=32)
     def __str__(self):
-        return self.name
+        return self.patronymic
     class Meta:
         verbose_name = "По-батькові"
         verbose_name_plural = "По-батькові"
@@ -36,7 +36,7 @@ class Lastname(models.Model):
     """
     lastname = models.CharField(max_length=32)
     def __str__(self):
-        return self.name
+        return self.lastname
     class Meta:
         verbose_name = "Фамілія"
         verbose_name_plural = "Фамілії"
@@ -88,6 +88,8 @@ class Clinic(models.Model):
     Model representing a Clinic.
     """
     clinic = models.CharField(max_length=64)
+    logo = models.ImageField(upload_to='uploads/%Y/%m/%d/', blank=True, null=True)
+    info = models.CharField(max_length=265)
     locality = models.ForeignKey(Locality, on_delete=models.SET_NULL, null=True, blank=True)
     def __str__(self):
         return self.clinic
