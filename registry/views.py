@@ -8,7 +8,10 @@ from .forms import *
 
 
 def clinics(request):
-    pass
+    clinics = Clinic.objects.all()
+    context = {'clinics': clinics}
+    return render(request, 'registry/clinics.html', context)
+
 def clinic_add(request):
     pass
 def clinic(request, id):
@@ -21,7 +24,10 @@ def clinic_delete(request, id):
 
 
 def doctors(request):
-    pass
+    doctors = Doctor.objects.all()
+    context = {'doctors': doctors}
+    return render(request, 'registry/doctors.html', context)
+
 def doctor(request, id):
     pass
 def doctor_add(request):
@@ -32,7 +38,10 @@ def doctor_delete(request, id):
     pass
 
 def patients(request):
-    pass
+    patients = Patient.objects.all()
+    context = {'patients': patients}
+    return render(request, 'registry/patients.html', context)
+
 def patient(request, id):
     pass
 def patient_add(request):
@@ -44,7 +53,10 @@ def patient_delete(request, id):
 
 
 def immunizations(request):
-    pass
+    immunizations = Immunization.objects.all()
+    context = {'immunizations': immunizations}
+    return render(request, 'registry/immunizations.html', context)
+
 def immunization(request, id):
     pass
 def immunization_add(request):
@@ -55,7 +67,10 @@ def immunization_delete(request, id):
     pass
 
 def logbook(request):
-    pass
+    logbook = Logbook.objects.all()
+    context = {'logbook': logbook}
+    return render(request, 'registry/logbook.html', context)
+
 def logbook_new(request):
     pass
 
