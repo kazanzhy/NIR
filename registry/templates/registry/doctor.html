@@ -1,13 +1,16 @@
 {% extends "base.html" %}
 
 {% block title %}
-    <title>Для лікарів - щеплення</title>
+    <title>Для лікарів - {{ doctor.lastname }}</title>
 {% endblock %}
 
-
 {% block content %}
-
-<h2>Щеплення</h2>
+<div class="media">
+  <div class="media-body">
+    <h2 class="media-heading">{{ doctor.lastname }} {{ doctor.firstname }} {{ doctor.patronymic }}</h2>
+    <p><a href="{{ doctor.clinic.get_registry_url }}">{{ doctor.clinic }}</a></p>
+  </div>
+</div>
 
 <p></p>
 
@@ -19,8 +22,6 @@
         <th>Серія</th>
         <th>Доза</th>
         <th>Дата</th>
-        <th>Лікар</th>
-        <th></th>
     </tr>
     </thead>
     <tbody>
@@ -33,25 +34,9 @@
         <td>{{ immunization.series }}</td>
         <td>{{ immunization.dose }}</td>
         <td>{{ immunization.date }}</td>
-        <td><a href="{{ immunization.doctor.get_registry_url }}">
-            {{ immunization.doctor.lastname }} {{ immunization.doctor.firstname }} {{ immunization.doctor.patronymic }}
-        </a></td>
-        <td><a href="{{ immunization.get_registry_url }}">Докладніше</a></td>
     </tr>
     {% endfor %}
     </tbody>
 </table>
-
-<p></p>
-
-<ul class="pagination">
-    {% for num in num_pages %}
-        {% if num == current_page %}
-            <li class="page-item active"><span class="page-link">{{num}}</span></li>
-        {% else %}
-            <li class="page-item"><a class="page-link" href="{% url 'patients' %}?page={{num}}">{{num}}</a></li>
-        {% endif %}
-    {% endfor %}
-</ul>
 
 {% endblock %}

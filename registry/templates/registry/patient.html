@@ -1,34 +1,34 @@
 {% extends "base.html" %}
 
 {% block title %}
-    <title>Для лікарів - щеплення</title>
+    <title>Для лікарів - {{ patient.lastname }}</title>
 {% endblock %}
 
 
 {% block content %}
-
-<h2>Щеплення</h2>
+<div class="media">
+  <div class="media-body">
+    <h2 class="media-heading">{{ patient.lastname }} {{ patient.firstname }} {{ patient.patronymic }}</h2>
+    <p>Дата народження: <b>{{ patient.birth }}</b></p>
+    <p>Телефон: <b>{{ patient.phone }}</b></p>
+  </div>
+</div>
 
 <p></p>
 
 <table class="table table-bordered">
     <thead>
     <tr>
-        <th>Пацієнт</th>
         <th>Вакцина</th>
         <th>Серія</th>
         <th>Доза</th>
         <th>Дата</th>
         <th>Лікар</th>
-        <th></th>
     </tr>
     </thead>
     <tbody>
     {% for immunization in immunizations %}
     <tr>
-        <td><a href="{{ immunization.patient.get_registry_url }}">
-            {{ immunization.patient.lastname }} {{ immunization.patient.firstname }} {{ immunization.patient.patronymic }}
-        </a></td>
         <td><a href="{{ immunization.series.vaccine.get_info_url }}">{{ immunization.series.vaccine }}</a></td>
         <td>{{ immunization.series }}</td>
         <td>{{ immunization.dose }}</td>
@@ -36,22 +36,9 @@
         <td><a href="{{ immunization.doctor.get_registry_url }}">
             {{ immunization.doctor.lastname }} {{ immunization.doctor.firstname }} {{ immunization.doctor.patronymic }}
         </a></td>
-        <td><a href="{{ immunization.get_registry_url }}">Докладніше</a></td>
     </tr>
     {% endfor %}
     </tbody>
 </table>
-
-<p></p>
-
-<ul class="pagination">
-    {% for num in num_pages %}
-        {% if num == current_page %}
-            <li class="page-item active"><span class="page-link">{{num}}</span></li>
-        {% else %}
-            <li class="page-item"><a class="page-link" href="{% url 'patients' %}?page={{num}}">{{num}}</a></li>
-        {% endif %}
-    {% endfor %}
-</ul>
 
 {% endblock %}

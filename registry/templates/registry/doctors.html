@@ -13,21 +13,29 @@
 <table class="table table-bordered">
     <thead>
     <tr>
-        <th>Фамілія</th>
-        <th>Ім'я</th>
-        <th>По-батькові</th>
+        <th>Лікар</th>
         <th>Клініка</th>
     </tr>
     </thead>
     <tbody>
     {% for doctor in doctors %}
     <tr>
-        <td><a href="{{ doctor.get_registry_url }}">{{ doctor.firstname }}</a></td>
-        <td>{{ doctor.lastname }}</td>
-        <td>{{ doctor.patronymic }}</td>
-        <td>{{ doctor.locality.district.region }}</td>
+        <td><a href="{{ doctor.get_registry_url }}">{{ doctor.lastname }} {{ doctor.firstname }} {{ doctor.patronymic }}</a></td>
+        <td><a href="{{ doctor.clinic.get_registry_url }}">{{ doctor.clinic }}</a></td>
     </tr>
     {% endfor %}
     </tbody>
 </table>
+
+<p></p>
+
+<ul class="pagination">
+    {% for num in num_pages %}
+        {% if num == current_page %}
+            <li class="page-item active"><span class="page-link">{{num}}</span></li>
+        {% else %}
+            <li class="page-item"><a class="page-link" href="{% url 'doctors' %}?page={{num}}">{{num}}</a></li>
+        {% endif %}
+    {% endfor %}
+</ul>
 {% endblock %}

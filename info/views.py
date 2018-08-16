@@ -29,9 +29,17 @@ def clinics(request):
     else:
         form = ClinicsSearchForm()
         clinics = Clinic.objects.all()
-    page = request.GET.get('page', 1)
     pages = Paginator(clinics, 20)
-    context = {'clinics': clinics, 'form': form}
+    current_page = request.GET.get('page', 1)
+    try:
+        current_page = int(current_page)
+    except:
+        current_page = 1
+    if current_page not in pages.page_range:
+        current_page = 1
+    clinics = pages.page(current_page) 
+    num_pages = pages.page_range
+    context = {'clinics': clinics, 'form': form, 'num_pages': num_pages, 'current_page': current_page}
     return render(request, 'info/clinics.html', context)
 
 

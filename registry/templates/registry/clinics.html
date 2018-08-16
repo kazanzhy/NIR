@@ -36,4 +36,17 @@
     {% endfor %}
     </tbody>
 </table>
+
+<p></p>
+
+<ul class="pagination">
+    {% for num in num_pages %}
+        {% if num == current_page %}
+            <li class="page-item active"><span class="page-link">{{num}}</span></li>
+        {% else %}
+            <li class="page-item"><a class="page-link" href="{% url 'clinics' %}?page={{num}}">{{num}}</a></li>
+        {% endif %}
+    {% endfor %}
+</ul>
+
 {% endblock %}

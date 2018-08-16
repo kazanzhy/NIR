@@ -89,13 +89,13 @@ class Clinic(models.Model):
     """
     clinic = models.CharField(max_length=64)
     logo = models.ImageField(upload_to='uploads/%Y/%m/%d/', blank=True, null=True)
-    info = models.CharField(max_length=265)
+    info = models.CharField(max_length=265, blank=True, null=True)
     locality = models.ForeignKey(Locality, on_delete=models.SET_NULL, null=True, blank=True)
     def __str__(self):
         return self.clinic
 
     def get_registry_url(self):
-        return reverse('info_clinic', args=[str(self.id)])
+        return reverse('clinic', args=[str(self.id)])
 
     def get_info_url(self):
         return reverse('info_clinic', args=[str(self.id)])
@@ -118,6 +118,8 @@ class Patient(models.Model):
     sex = models.BooleanField() # 1 for Male and 0 for Female
     def __str__(self):
         return '{} {} {}, {}'.format(self.firstname, self.patronymic, self.lastname, self.birth)
+    def get_registry_url(self):
+        return reverse('patient', args=[str(self.id)])
     class Meta:
         verbose_name = "Пацієнт"
         verbose_name_plural = "Пацієнти"
@@ -134,7 +136,7 @@ class Doctor(models.Model):
     def __str__(self):
         return 'Dr. {} {} {} ({})'.format(self.firstname, self.patronymic, self.lastname, self.clinic)
     def get_registry_url(self):
-        return reverse('clinic', args=[str(self.id)])
+        return reverse('doctor', args=[str(self.id)])
     class Meta:
         verbose_name = "Лікар"
         verbose_name_plural = "Лікарі"
@@ -218,6 +220,8 @@ class Immunization(models.Model):
     date = models.DateField(default=timezone.localdate)
     def __str__(self):
         return '{} - {} - {}'.format(self.patient, self.series, self.doctor)
+    def get_registry_url(self):
+        return reverse('immunization', args=[str(self.id)])
     class Meta:
         verbose_name = "Щеплення"
         verbose_name_plural = "Щеплення"

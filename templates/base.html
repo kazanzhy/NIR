@@ -22,15 +22,16 @@
 {% block navbar %}
 <nav class="navbar navbar-default">
 <div class="container-fluid">
-    <div class="navbar-header"><a class="navbar-brand" href="#"><img src="{% static 'syringe.png' %}" height="25" width="25"></a></div>
+    <div class="navbar-header"><a class="navbar-brand" href="#"><img src="{% static 'logo.png' %}" height="25" width="25"></a></div>
     <ul class="nav navbar-nav">
         <li class="active"><a href="{% url 'home' %}">Головна</a></li>
         <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Для лікарів <span class="caret"></span></a>
             <ul class="dropdown-menu">
-                <li><a href="#">Клініки</a></li>
-                <li><a href="#">Лікарі</a></li>
-                <li><a href="#">Пацієнти</a></li>
-                <li><a href="#">Щеплення</a></li>
+                <li><a href="{% url 'clinics' %}">Клініки</a></li>
+                <li><a href="{% url 'doctors' %}">Лікарі</a></li>
+                <li><a href="{% url 'patients' %}">Пацієнти</a></li>
+                <li><a href="{% url 'immunizations' %}">Щеплення</a></li>
+                <li><a href="{% url 'logbook' %}">Хурнал обліку</a></li>
             </ul>
         </li>
         <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Для пацієнтів <span class="caret"></span></a>

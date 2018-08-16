@@ -1,1 +1,43 @@
+{% extends "base.html" %}
 
+{% block title %}
+    <title>Для лікарів - пацієнти</title>
+{% endblock %}
+
+{% block content %}
+
+    <h1>Пацієнти</h1>
+
+<p></p>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Пацієнт</th>
+        <th>Стать</th>
+        <th>Дата народження</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for patient in patients %}
+    <tr>
+        <td><a href="{{ patient.get_registry_url }}">{{ patient.lastname }} {{ patient.firstname }} {{ patient.patronymic }}</a></td>
+        <td>{% if patient.sex %}Чоловіча{% else %}Жіноча{% endif %}</td>
+        <td>{{ patient.birth }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<p></p>
+
+<ul class="pagination">
+    {% for num in num_pages %}
+        {% if num == current_page %}
+            <li class="page-item active"><span class="page-link">{{num}}</span></li>
+        {% else %}
+            <li class="page-item"><a class="page-link" href="{% url 'doctors' %}?page={{num}}">{{num}}</a></li>
+        {% endif %}
+    {% endfor %}
+</ul>
+{% endblock %}

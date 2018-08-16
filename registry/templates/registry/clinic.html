@@ -1,33 +1,37 @@
 {% extends "base.html" %}
 
 {% block title %}
-    <title>Для лікарів - клініка</title>
+    <title>Для лікарів - {{ clinic.clinic }}</title>
 {% endblock %}
 
 {% block content %}
-
-    <h2>{{ clinic.clinic }}</h2>
-
-<p>Населений пункт: {{ clinic.locality }}</p>
-<p>Район: {{ clinic.locality.district }}</p>
-<p>Область: {{ clinic.locality.district.region }}</p>
+<div class="media">
+  <div class="media-body">
+    <h2 class="media-heading">{{ clinic.clinic }}</h2>
+    <p><i>{{ clinic.locality }}, {{ clinic.locality.district }} район, {{ clinic.locality.district.region }} область</i></p>
+    <p>{{ clinic.info }}</p>
+  </div>
+  <div class="media-right">
+    {% if clinic.logo %}
+        <img src="{{ clinic.logo.url }}" class="media-object" style="height:150px">
+    {% endif %}
+  </div>
+</div>
 
 <p></p>
 
 <table class="table table-bordered">
     <thead>
     <tr>
-        <th>Вакцина</th>
-        <th>Серія</th>
-        <th>Кількість доз</th>
+        <th>Лікар</th>
+        <th>Статистика</th>
     </tr>
     </thead>
     <tbody>
-    {% for vaccine in vaccines %}
+    {% for doctor in doctors %}
     <tr>
-        <td><a href="{{ vaccine.series.vaccine.get_info_url }}">{{ vaccine.series.vaccine }}</a></td>
-        <td>{{ vaccine.series }}</td>
-        <td>{{ vaccine.doses }}</td>
+        <td><a href="{{ doctor.get_registry_url }}">{{ doctor.lastname }} {{ doctor.firstname }} {{ doctor.patronymic }}</a></td>
+        <td></td>
     </tr>
     {% endfor %}
     </tbody>
