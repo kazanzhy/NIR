@@ -143,9 +143,37 @@ def immunization_delete(request, id):
 
 def logbook(request):
     logbook = Logbook.objects.all()
-    context = {'logbook': logbook}
+    pages = Paginator(logbook, 20)
+    current_page = request.GET.get('page', 1)
+    try:
+        current_page = int(current_page)
+    except:
+        current_page = 1
+    if current_page not in pages.page_range:
+        current_page = 1
+    logbook = pages.page(current_page) 
+    num_pages = pages.page_range
+    context = {'logbook': logbook, 'num_pages': num_pages, 'current_page': current_page}
     return render(request, 'registry/logbook.html', context)
 
 def logbook_new(request):
     pass
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

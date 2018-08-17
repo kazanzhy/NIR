@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <title>Для лікарів - журнал обліку</title>
+{% endblock %}
+
+
+{% block content %}
+
+<h2>Журнал обліку</h2>
+
+<p></p>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Клініка</th>
+        <th>Вакцина</th>
+        <th>Серія</th>
+        <th>Кількість доз</th>
+        <th>Дата отримання</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for log in logbook %}
+    <tr>
+        <td><a href="{{ log.clinic.get_registry_url }}">{{ log.clinic }}</a></td>
+        <td><a href="{{ log.series.vaccine.get_info_url }}">{{ log.series.vaccine }}</a></td>
+        <td>{{ log.series }}</td>
+        <td>{{ log.doses }}</td>
+        <td>{{ log.date }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<p></p>
+
+<ul class="pagination">
+    {% for num in num_pages %}
+        {% if num == current_page %}
+            <li class="page-item active"><span class="page-link">{{num}}</span></li>
+        {% else %}
+            <li class="page-item"><a class="page-link" href="{% url 'logbook' %}?page={{num}}">{{num}}</a></li>
+        {% endif %}
+    {% endfor %}
+</ul>
+
+{% endblock %}
