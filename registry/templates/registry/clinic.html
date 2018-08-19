@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block content %}
+
 <div class="media">
   <div class="media-body">
     <h2 class="media-heading">{{ clinic.clinic }}</h2>
@@ -18,7 +19,13 @@
   </div>
 </div>
 
-<p></p>
+<br>
+
+<a href="{% url 'clinic_update' id=clinic.pk %}">Редагувати</a>
+<a href="{% url 'clinic_delete' id=clinic.pk %}">Видалити</a>
+<a href="{% url 'doctor_add' %}">Додати лікаря</a>
+
+<br>
 
 <table class="table table-bordered">
     <thead>

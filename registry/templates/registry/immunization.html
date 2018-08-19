@@ -6,25 +6,28 @@
 
 
 {% block content %}
-        <p>
-            Пацієнт:
-            <a href="{{ immunization.patient.get_registry_url }}">
-                {{ immunization.patient.lastname }} {{ immunization.patient.firstname }} {{ immunization.patient.patronymic }}
-            </a>
-        </p>
-        <p>Вакцина: <a href="{{ immunization.series.vaccine.get_info_url }}">{{ immunization.series.vaccine }}</a></p>
-        <p>Серія: {{ immunization.series }}</p>
-        <p>Доза: {{ immunization.dose }}</p>
-        <p>Дата: {{ immunization.date }}</p>
-        <p>
-            Лікар: 
-            <a href="{{ immunization.doctor.get_registry_url }}">
-                {{ immunization.doctor.lastname }} {{ immunization.doctor.firstname }} {{ immunization.doctor.patronymic }}
-            </a>
-        </p>
 
-        <td>
+<a href=""><span class="label label-warning">Редагувати</span></a>  
+<a href=""><span class="label label-info">QR-код</span></a>  
+<a href=""><span class="label label-success">Друкувати</span></a>
 
+<p></p>
 
+<p>
+    Пацієнт: 
+    <a href="{{ immunization.patient.get_registry_url }}">
+    {{ immunization.patient.lastname }} {{ immunization.patient.firstname }} {{ immunization.patient.patronymic }}
+    </a>
+</p>
+<p>Вакцина: <a href="{{ immunization.series.vaccine.get_info_url }}">{{ immunization.series.vaccine }}</a></p>
+<p>Серія: {{ immunization.series }}</p>
+<p>Доза: {{ immunization.dose }}</p>
+<p>Дата: {{ immunization.date }}</p>
+<p>
+    Лікар: 
+    <a href="{{ immunization.doctor.get_registry_url }}">
+    {{ immunization.doctor.lastname }} {{ immunization.doctor.firstname }} {{ immunization.doctor.patronymic }}
+    </a>
+</p>
 
 {% endblock %}

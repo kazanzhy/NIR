@@ -7,10 +7,10 @@ from . import views
 
 urlpatterns = [
     path('clinics/', views.clinics, name='clinics'),
-    path('clinic/add', views.clinics, name='clinic_add'),
+    path('clinic/add', views.clinic_add, name='clinic_add'),
     path('clinic/<int:id>', views.clinic, name='clinic'),
-    path('clinic/<int:id>/update', views.clinics, name='clinic_update'),
-    path('clinic/<int:id>/delete', views.clinics, name='clinic_delete'),
+    path('clinic/<int:id>/update', views.clinic_update, name='clinic_update'),
+    path('clinic/<int:id>/delete', views.clinic_delete, name='clinic_delete'),
 
     path('doctors/', views.doctors, name='doctors'),
     path('doctor/add', views.doctor_add, name='doctor_add'),

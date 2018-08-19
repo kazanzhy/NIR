@@ -1,8 +1,9 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.paginator import Paginator
+
 
 from .models import *
 from .forms import *
@@ -47,7 +48,16 @@ def clinic(request, id):
     return render(request, 'registry/clinic.html', context)
 
 def clinic_add(request):
-    pass
+    if request.method == 'POST':
+        form = ClinicAddForm(request.POST)
+        if form.is_valid():
+            pass
+    else:
+        form = ClinicAddForm()
+    context = {'form': form}
+    return render(request, 'registry/clinic_add.html', context)
+    
+
 def clinic_update(request, id):
     pass
 def clinic_delete(request, id):
@@ -77,7 +87,21 @@ def doctor(request, id):
     return render(request, 'registry/doctor.html', context)
 
 def doctor_add(request):
-    pass
+    if request.method == 'POST':
+        form = DoctorAddForm(request.POST)
+        if form.is_valid():
+            clinic = form.cleaned_data['clinic']
+            last = Lastname.objects.get_or_create(lastname = form.cleaned_data['lastname'])[0]
+            first = Firstname.objects.get_or_create(firstname = form.cleaned_data['firstname'])[0]
+            patro = Patronymic.objects.get_or_create(patronymic = form.cleaned_data['patronymic'])[0]
+            response, created = Doctor.objects.get_or_create(clinic=clinic, lastname=last, firstname=first, patronymic=patro)
+            if created:
+                return redirect(reverse('doctors'))
+    else:
+        form = DoctorAddForm()
+    context = {'form': form}
+    return render(request, 'registry/doctor_add.html', context)
+
 def doctor_update(request, id):
     pass
 def doctor_delete(request, id):

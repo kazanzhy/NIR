@@ -6,9 +6,48 @@
 
 {% block content %}
 
-    <h1>Головна</h1>
-{% load static %}
-<img src="{% static 'syringe.png' %}" alt="" height="100" width="100">
+<h1>Головна</h1>
+
+<span class="glyphicon glyphicon-print"></span>
+
+<span class="glyphicon glyphicon-qrcode"></span>
+<span class="glyphicon glyphicon-plus-sign"></span>
+
+<span class="glyphicon glyphicon-filter"></span>
+<span class="glyphicon glyphicon-paperclip"></span>
+<span class="glyphicon glyphicon-save"></span>
+<span class="glyphicon glyphicon-open"></span>
+<span class="glyphicon glyphicon-saved"></span>
+
+<span class="glyphicon glyphicon-hourglass"></span>
+
+<span class="glyphicon glyphicon-file"></span>
+
+
+
+
+
+
+
+
+
+<h3>Для пацієнтів</h3>
+<ul>
+    <li><a href="{% url 'info_calendar' %}">Календар</a></li>
+    <li><a href="{% url 'info_vaccines' %}">Вакцини</a></li>
+    <li><a href="{% url 'info_clinics' %}">Клініки</a></li>
+</ul>
+
+<p></p>
+
+<h3>Для працівників медичних закладів</h3>
+<ul>
+    <li><a href="{% url 'clinics' %}">Клініки</a></li>
+    <li><a href="{% url 'doctors' %}">Лікарі</a> </li>
+    <li><a href="{% url 'patients' %}">Пацієнти</a></li>
+    <li><a href="{% url 'immunizations' %}">Щеплення</a></li>
+    <li><a href="{% url 'logbook' %}">Хурнал обліку</a></li>
+</ul>
 
 {% endblock %}
 

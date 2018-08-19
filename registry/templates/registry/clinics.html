@@ -8,11 +8,18 @@
 
     <h1>Клініки</h1>
 
+<p></p>
+
+<a href="{% url 'clinic_add' %}"><button class="btn btn-default btn-bg " name="clinic_add">Додати клініку</button></a>
+
+<p></p>
+
 <form action="" method="post">
     {% csrf_token %}
     {{ form }}
     <input type="submit" value="Фільтрувати">
 </form>
+
 
 <p></p>
 
@@ -37,7 +44,9 @@
     </tbody>
 </table>
 
+
 <p></p>
+
 
 <ul class="pagination">
     {% for num in num_pages %}

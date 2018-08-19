@@ -89,7 +89,7 @@ class Clinic(models.Model):
     """
     clinic = models.CharField(max_length=64)
     logo = models.ImageField(upload_to='uploads/%Y/%m/%d/', blank=True, null=True)
-    info = models.CharField(max_length=265, blank=True, null=True)
+    info = models.TextField(max_length=265, blank=True, null=True)
     locality = models.ForeignKey(Locality, on_delete=models.SET_NULL, null=True, blank=True)
     def __str__(self):
         return self.clinic

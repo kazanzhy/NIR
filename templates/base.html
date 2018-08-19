@@ -27,18 +27,18 @@
         <li class="active"><a href="{% url 'home' %}">Головна</a></li>
         <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Для лікарів <span class="caret"></span></a>
             <ul class="dropdown-menu">
-                <li><a href="{% url 'clinics' %}">Клініки</a></li>
-                <li><a href="{% url 'doctors' %}">Лікарі</a></li>
-                <li><a href="{% url 'patients' %}">Пацієнти</a></li>
-                <li><a href="{% url 'immunizations' %}">Щеплення</a></li>
-                <li><a href="{% url 'logbook' %}">Хурнал обліку</a></li>
+                <li><a href="{% url 'clinics' %}"><span class="glyphicon glyphicon-home"></span> Клініки</a></li>
+                <li><a href="{% url 'doctors' %}"><span class="glyphicon glyphicon-plus"></span> Лікарі</a></li>
+                <li><a href="{% url 'patients' %}"><span class="glyphicon glyphicon-user"></span> Пацієнти</a></li>
+                <li><a href="{% url 'immunizations' %}"><span class="glyphicon glyphicon-list"></span> Щеплення</a></li>
+                <li><a href="{% url 'logbook' %}"><span class="glyphicon glyphicon-list-alt"></span> Хурнал обліку</a></li>
             </ul>
         </li>
         <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Для пацієнтів <span class="caret"></span></a>
             <ul class="dropdown-menu">
-                <li><a href="{% url 'info_calendar' %}">Календар</a></li>
-                <li><a href="{% url 'info_vaccines' %}">Вакцини</a></li>
-                <li><a href="{% url 'info_clinics' %}">Клініки</a></li>
+                <li><a href="{% url 'info_calendar' %}"><span class="glyphicon glyphicon-time"></span> Календар</a></li>
+                <li><a href="{% url 'info_vaccines' %}"><span class="glyphicon glyphicon-tint"></span> Вакцини</a></li>
+                <li><a href="{% url 'info_clinics' %}"><span class="glyphicon glyphicon-home"></span> Клініки</a></li>
             </ul>
         </li>
         <li><a href="{% url 'about' %}">Про проект</a></li>
@@ -48,9 +48,9 @@
         {% if request.user.username %}
         <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Профіль <span class="caret"></span></a>
             <ul class="dropdown-menu">
-            <li><a href="">Мій профіль</a></li>
-            <li><a href="">Редагувати</a></li>
-            <li><a href="">Сповіщення</a></li>
+            <li><a href=""><span class="glyphicon glyphicon-unchecked"></span> Мій профіль</a></li>
+            <li><a href=""><span class="glyphicon glyphicon-edit"></span> Редагувати</a></li>
+            <li><a href=""><span class="glyphicon glyphicon-bell"></span> Сповіщення</a></li>
             </ul>
         </li>
         <li><a href="/accounts/logout/"><span class="glyphicon glyphicon-log-out"></span> Вийти</a></li>  
