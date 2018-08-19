@@ -6,8 +6,47 @@
 
 {% block content %}
 
+{% load static %} 
+
     <h1>Про проект</h1>
+
 <p>Проект був задуманий бла-бла-бла</p>
+
+    <h1>Команда</h1>
+
+<div class="media">
+  <div class="media-body">
+    <h3 class="media-heading">Дмитро Казанжи</h3>
+    <p>Back-end</p>
+  </div>
+  <div class="media-right">
+      <img class="media-object" src="{% static 'dima.jpg' %}" alt="..." height="200" width="200">
+  </div>
+</div>
+
+<p></p>
+
+<div class="media">
+  <div class="media-body">
+    <h3 class="media-heading">Олександр Петренко</h3>
+    <p>Project manager</p>
+  </div>
+  <div class="media-right">
+      <img class="media-object" src="{% static 'alex.jpg' %}" alt="..." height="200" width="200">
+  </div>
+</div>
+
+<p></p>
+
+<div class="media">
+  <div class="media-body">
+    <h3 class="media-heading">Анна Чайка</h3>
+    <p>Front-end</p>
+  </div>
+  <div class="media-right">
+      <img class="media-object" src="{% static 'anna.jpg' %}" alt="..." height="200" width="200">
+  </div>
+</div>
 
 {% endblock %}
 

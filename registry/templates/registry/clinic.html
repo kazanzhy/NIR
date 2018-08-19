@@ -19,13 +19,12 @@
   </div>
 </div>
 
-<br>
+<p></p>
 
-<a href="{% url 'clinic_update' id=clinic.pk %}">Редагувати</a>
-<a href="{% url 'clinic_delete' id=clinic.pk %}">Видалити</a>
-<a href="{% url 'doctor_add' %}">Додати лікаря</a>
+<a href="{% url 'doctor_add' %}"><button class="btn btn-primary btn-bg " name="clinic_add">Додати лікаря</button></a>
+<a href="{% url 'clinic_update' id=clinic.pk %}"><button class="btn btn-default btn-bg " name="clinic_update">Редагувати</button></a>
 
-<br>
+<p></p>
 
 <table class="table table-bordered">
     <thead>

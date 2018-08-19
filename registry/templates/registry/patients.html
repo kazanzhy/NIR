@@ -7,7 +7,16 @@
 {% block content %}
 
     <h1>Пацієнти</h1>
+<p></p>
 
+<a href="{% url 'patient_add' %}"><button class="btn btn-primary btn-bg " name="patient_add">Додати пацієнта</button></a>
+<p></p>
+
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Фільтрувати">
+</form>
 <p></p>
 
 <table class="table table-bordered">

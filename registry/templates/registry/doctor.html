@@ -13,6 +13,9 @@
 </div>
 
 <p></p>
+<a href="{% url 'patient_add' %}"><button class="btn btn-primary btn-bg " name="patient_add">Додати пацієнта</button></a>
+<a href="{% url 'doctor_update' id=doctor.pk %}"><button class="btn btn-default btn-bg " name="doctor_update">Редагувати</button></a>
+<p></p>
 
 <table class="table table-bordered">
     <thead>

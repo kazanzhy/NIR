@@ -25,13 +25,12 @@ urlpatterns = [
     path('patient/<int:id>/delete', views.patient_delete, name='patient_delete'),
 
     path('immunizations/', views.immunizations, name='immunizations'),
-    path('immunization/addnew', views.immunization_add_new, name='immunization_add_new'),
-    path('immunization/addold', views.immunization_add_old, name='immunization_add_old'),
+    path('immunization/add', views.immunization_add, name='immunization_add'),
     path('immunization/<int:id>', views.immunization, name='immunization'),
     path('immunization/<int:id>/update', views.immunization_update, name='immunization_update'),
     path('immunization/<int:id>/delete', views.immunization_delete, name='immunization_delete'),
 
     path('logbook/', views.logbook, name='logbook'),
-    path('logbook/new', views.logbook_new, name='logbook_new'),
+    path('logbook/add', views.logbook_add, name='logbook_add'),
 ]
 

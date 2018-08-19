@@ -108,6 +108,7 @@ def doctor_delete(request, id):
     pass
 
 def patients(request):
+    form = PatientsSearchForm()
     patients = Patient.objects.all()
     pages = Paginator(patients, 20)
     current_page = request.GET.get('page', 1)
@@ -119,7 +120,7 @@ def patients(request):
         current_page = 1
     patients = pages.page(current_page) 
     num_pages = pages.page_range
-    context = {'patients': patients, 'num_pages': num_pages, 'current_page': current_page}
+    context = {'patients': patients, 'form': form, 'num_pages': num_pages, 'current_page': current_page}
     return render(request, 'registry/patients.html', context)
 
 def patient(request, id):
@@ -129,7 +130,23 @@ def patient(request, id):
     return render(request, 'registry/patient.html', context)
 
 def patient_add(request):
-    pass
+    if request.method == 'POST':
+        form = PatientAddForm(request.POST)
+        patient = Patient()
+        if form.is_valid():
+            patient.lastname = Lastname.objects.get_or_create(lastname = form.cleaned_data['lastname'])[0]
+            patient.firstname = Firstname.objects.get_or_create(firstname = form.cleaned_data['firstname'])[0]
+            patient.patronymic = Patronymic.objects.get_or_create(patronymic = form.cleaned_data['patronymic'])[0]
+            patient.sex = form.cleaned_data['sex']
+            patient.birth = form.cleaned_data['birth']
+            patient.phone = form.cleaned_data['phone']
+            patient.save()
+            return redirect(reverse('patients'))
+    else:
+        form = PatientAddForm()
+    context = {'form': form}
+    return render(request, 'registry/patient_add.html', context)
+
 def patient_update(request, id):
     pass
 def patient_delete(request, id):
@@ -156,9 +173,7 @@ def immunization(request, id):
     context = {'immunization': immunization}
     return render(request, 'registry/immunization.html', context)
 
-def immunization_add_new(request):
-    pass
-def immunization_add_old(request):
+def immunization_add(request):
     pass
 def immunization_update(request, id):
     pass
@@ -180,7 +195,7 @@ def logbook(request):
     context = {'logbook': logbook, 'num_pages': num_pages, 'current_page': current_page}
     return render(request, 'registry/logbook.html', context)
 
-def logbook_new(request):
+def logbook_add(request):
     pass
 
 
