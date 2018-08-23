@@ -201,7 +201,7 @@ class Logbook(models.Model):
     clinic = models.ForeignKey(Clinic, on_delete=models.SET_NULL, null=True, blank=True)
     series = models.ForeignKey(Series, on_delete=models.SET_NULL, null=True, blank=True)
     doses = models.IntegerField(null=True, blank=True)
-    date = models.DateField(default=timezone.localdate)
+    date = models.DateField()
     def __str__(self):
         return '{}: {} #{}. {}'.format(self.clinic, self.series, self.doses, self.date)
     class Meta:
@@ -215,7 +215,11 @@ class Immunization(models.Model):
     """
     patient = models.ForeignKey(Patient, on_delete=models.SET_NULL, null=True, blank=True)
     doctor = models.ForeignKey(Doctor, on_delete=models.SET_NULL, null=True, blank=True)
+    clinic = models.ForeignKey(Clinic, on_delete=models.SET_NULL, null=True, blank=True)
     series = models.ForeignKey(Series, on_delete=models.SET_NULL, null=True, blank=True)
+    general_reaction = models.CharField(max_length=256, null=True, blank=True)
+    local_reaction = models.CharField(max_length=256, null=True, blank=True)
+    contraindications = models.CharField(max_length=256, null=True, blank=True)
     dose = models.IntegerField(default=1)
     date = models.DateField(default=timezone.localdate)
     def __str__(self):
@@ -236,6 +240,7 @@ class Profile(models.Model):
     district = models.ForeignKey(District, on_delete=models.SET_NULL, null=True, blank=True)
     locality = models.ForeignKey(Locality, on_delete=models.SET_NULL, null=True, blank=True)
     clinic = models.ForeignKey(Clinic, on_delete=models.SET_NULL, null=True, blank=True)
+    token = models.CharField(max_length=32, null=True, blank=True)
     is_approved = models.BooleanField(default=False)
     def __str__(self):
         return self.user

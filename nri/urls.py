@@ -25,6 +25,7 @@ urlpatterns = [
 
     path('registry/', include('registry.urls')),
     path('info/', include('info.urls')),
+    path('api/', include('api.urls')),
 
     path('about', views.about, name='about'),
     path('', views.home, name='home'),

@@ -1,7 +1,8 @@
 from django import forms
-from registry.models import Region, District, Locality, Disease, Clinic
 
-    
+from registry.models import *
+
+
 class VaccinesSearchForm(forms.Form):
     disease = forms.ModelChoiceField(label='Захворювання', queryset = Disease.objects.all(), required=False)
 
@@ -42,12 +43,39 @@ class PatientAddForm(forms.Form):
     birth = forms.DateField(label='Дата народження', widget=forms.widgets.DateInput(format='%d.%m.%Y'))
     phone = forms.CharField(label='Телефон', initial= '+380', max_length=17)
 
-
 class ImmunizationAddForm(forms.Form):
-    lastname = forms.CharField(label='Фамілія', max_length=32)
-    firstname = forms.CharField(label='Ім\'я', max_length=32)
-    patronymic = forms.CharField(label='По-батькові', max_length=32)
-    sex = forms.ChoiceField(label='Стать', choices = ((True,'Чоловіча'), (False, 'Жіноча')))
-    birth = forms.DateField(label='Дата народження', input_formats = ['%d.%m.%Y', '%d,%m,%Y', '%d,%m,%Y'])
-    phone = forms.CharField(label='Телефон', initial= '+380', max_length=17)
+    patient = forms.ModelChoiceField(label='Пацієнт', queryset = Patient.objects.all(), required=False)
+    doctor = forms.ModelChoiceField(label='Доктор', queryset = Doctor.objects.all(), required=False)
+    series = forms.CharField(label='Серія', max_length=32)
+    dose = forms.CharField(label='Доза', max_length=32)
+    date = forms.DateField(label='Дата', widget=forms.widgets.DateInput(format='%d.%m.%Y'))
+
+class LogbookAddForm(forms.Form):
+    clinic = forms.ModelChoiceField(label='Клініка', required=False, queryset = Clinic.objects.all())
+    vaccine = forms.ModelChoiceField(label='Вакцина', required=False, queryset = Vaccine.objects.all())
+    series = forms.CharField(label='Серія', max_length=32)
+    doses = forms.IntegerField(label='Кількість доз')
+    date = forms.DateField(label='Дата', widget=forms.SelectDateWidget(), input_formats=('%d.%m.%Y'))
+
+class ProfileEditForm(forms.Form):
+    region = forms.ModelChoiceField(label='Область', queryset = Region.objects.all(), required=False)
+    district = forms.ModelChoiceField(label='Район', queryset = District.objects.all(), required=False)
+    locality = forms.ModelChoiceField(label='Населений пункт', queryset = Locality.objects.all(), required=False)
+    clinic = forms.ModelChoiceField(label='Клініка', required=False, queryset = Clinic.objects.all())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

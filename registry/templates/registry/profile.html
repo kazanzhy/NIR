@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <title>Мій профіль</title>
+{% endblock %}
+
+{% block content %}
+
+<div class="media">
+  <div class="media-body">
+    <h2 class="media-heading">Мій профіль</h2>
+    <p>Область: {{ profile.region }}</p>
+    <p>Район: {{ profile.district }}</p>
+    <p>Населений пункт: {{ profile.locality }}</p>
+    <p>Клініка: {{ profile.clinic }}</p>
+    <p>Права доступу: </p>
+  </div>
+
+</div>
+
+<p></p>
+
+<a href="{% url 'profile_edit' %}"><button class="btn btn-default btn-bg " name="profile_edit">Редагувати профіль</button></a>
+
+{% endblock %}

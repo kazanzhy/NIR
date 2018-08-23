@@ -174,7 +174,16 @@ def immunization(request, id):
     return render(request, 'registry/immunization.html', context)
 
 def immunization_add(request):
-    pass
+    if request.method == 'POST':
+        form = ImmunizationAddForm(request.POST)
+        patient = Patient()
+        if form.is_valid():
+            pass
+    else:
+        form = ImmunizationAddForm()
+    context = {'form': form}
+    return render(request, 'registry/immunization_add.html', context)
+
 def immunization_update(request, id):
     pass
 def immunization_delete(request, id):
@@ -196,8 +205,30 @@ def logbook(request):
     return render(request, 'registry/logbook.html', context)
 
 def logbook_add(request):
-    pass
+    if request.method == 'POST':
+        form = LogbookAddForm(request.POST)
+        if form.is_valid():
+            pass
+    else:
+        form = LogbookAddForm()
+    context = {'form': form}
+    return render(request, 'registry/logbook_add.html', context)
 
+def profile(request):
+    profile= []
+    context = {'profile': profile}
+    return render(request, 'registry/profile.html', context)
+
+
+def profile_edit(request):
+    if request.method == 'POST':
+        form = ProfileEditForm(request.POST)
+        if form.is_valid():
+            pass
+    else:
+        form = ProfileEditForm()
+    context = {'form': form}
+    return render(request, 'registry/profile_edit.html', context)
 
 
 

@@ -48,8 +48,8 @@
         {% if request.user.username %}
         <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Профіль <span class="caret"></span></a>
             <ul class="dropdown-menu">
-            <li><a href=""><span class="glyphicon glyphicon-unchecked"></span> Мій профіль</a></li>
-            <li><a href=""><span class="glyphicon glyphicon-edit"></span> Редагувати</a></li>
+            <li><a href="{% url 'profile' %}"><span class="glyphicon glyphicon-unchecked"></span> Мій профіль</a></li>
+            <li><a href="{% url 'profile_edit' %}"><span class="glyphicon glyphicon-edit"></span> Редагувати</a></li>
             <li><a href=""><span class="glyphicon glyphicon-bell"></span> Сповіщення</a></li>
             </ul>
         </li>

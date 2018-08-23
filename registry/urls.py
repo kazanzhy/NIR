@@ -32,5 +32,14 @@ urlpatterns = [
 
     path('logbook/', views.logbook, name='logbook'),
     path('logbook/add', views.logbook_add, name='logbook_add'),
+
+    path('profile/', views.profile, name='profile'),
+    path('profile/edit', views.profile_edit, name='profile_edit'),
 ]
+
+
+
+
+
+
 
