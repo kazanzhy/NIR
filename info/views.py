@@ -51,15 +51,10 @@ def clinic(request, id):
 
 
 def vaccines(request):
-    if request.method == 'POST':
-        form = VaccinesSearchForm(request.POST)
-        if form.is_valid():
-            if form.cleaned_data['disease'] is not None:
-                vaccines = Vaccine.objects.filter(disease = form.cleaned_data['disease'])
-            else:
-                vaccines = Vaccine.objects.all()
+    form = VaccinesSearchForm(request.GET)
+    if form.is_valid() and form.cleaned_data['disease'] is not None:
+        vaccines = Vaccine.objects.filter(disease=form.cleaned_data['disease'])
     else:
-        form = VaccinesSearchForm()
         vaccines = Vaccine.objects.all()
     context = {'vaccines': vaccines, 'form': form}
     return render(request, 'info/vaccines.html', context)

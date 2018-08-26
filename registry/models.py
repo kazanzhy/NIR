@@ -134,7 +134,7 @@ class Doctor(models.Model):
     lastname = models.ForeignKey(Lastname, on_delete=models.SET_NULL, null=True, blank=True)
     clinic = models.ForeignKey(Clinic, on_delete=models.SET_NULL, null=True, blank=True)
     def __str__(self):
-        return 'Dr. {} {} {} ({})'.format(self.firstname, self.patronymic, self.lastname, self.clinic)
+        return 'Dr. {} {} {}'.format(self.firstname, self.patronymic, self.lastname)
     def get_registry_url(self):
         return reverse('doctor', args=[str(self.id)])
     class Meta:

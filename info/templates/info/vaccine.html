@@ -8,18 +8,24 @@
 
     <h2>{{ vaccine.vaccine }}</h2>
 
-<p>Виробник: {{ vaccine.manufacturer }}</p>
+<table class="table">
+    <tr>
+        <th>Виробник</th>
+        <td>{{ vaccine.manufacturer }}</td>
+    </tr>
+    <tr>
+        <th>Країна походження</th>
+        <td>{{ vaccine.country }}</td>
+    </tr>
+    <tr>
+        <th>Профілактика хвороб</th>
+        <td><ul>{% for disease in vaccine.disease.all %}<li>{{ disease }}</li>{% endfor %}</ul></td>
+    </tr>
+    <tr>
+        <th>Інформація</th>
+        <td>{{ vaccine.info }}</td>
+    </tr>
+</table>
 
-<p>Країна походження: {{ vaccine.country }}</p>
-
-<p>Профілактика хвороб:</p>
-<p><ul>
-    {% for disease in vaccine.disease.all %}
-    <li>{{ disease }}</li>
-    {% endfor %}
-</ul></p>
-
-<p>Інформація:</p>
-<p>{{ vaccine.info }}</p>
 {% endblock %}
 
