@@ -8,10 +8,10 @@ def regions(request):
     Return all regions in database as list of dicts
     '''
     # Get objects from database
-    objects = Region.objects.all()
+    regions = Region.objects.all()
     # Convert queryset to list of dicts
-    data = list(objects.values('id', 'region')) 
-    return JsonResponse({"data": data})
+    data = {region.id: region.region for region in regions}
+    return JsonResponse(data)
 
 
 def districts(request):
@@ -24,12 +24,12 @@ def districts(request):
     try:
         region = int(region)
     except:
-        objects = District.objects.all()
+        districts = District.objects.all()
     else:
-        objects = District.objects.filter(region=region)
-    # If all is right convert queryset to list of dicts
-    data = list(objects.values('id', 'district')) 
-    return JsonResponse({"data": data})
+        districts = District.objects.filter(region=region)
+    # If all is right convert queryset to dict
+    data = {district.id: district.district for district in districts}
+    return JsonResponse(data)
 
 def localities(request):
     '''
@@ -41,12 +41,12 @@ def localities(request):
     try:
         district = int(district)
     except:
-        objects = Locality.objects.all()
+        localities = Locality.objects.all()
     else:
-        objects = Locality.objects.filter(district=district)
-    # If all is right convert queryset to list of dicts
-    data = list(objects.values('id', 'locality')) 
-    return JsonResponse({"data": data})
+        localities = Locality.objects.filter(district=district)
+    # If all is right convert queryset to dict
+    data = {locality.id: locality.locality for locality in localities}
+    return JsonResponse(data)
 
 def clinics(request):
     '''
@@ -58,12 +58,13 @@ def clinics(request):
     try:
         locality = int(locality)
     except:
-        objects = Clinic.objects.all()
+        clinics = Clinic.objects.all()
     else:
-        objects = Clinic.objects.filter(locality=locality)
-    # If all is right convert queryset to list of dicts
-    data = list(objects.values('id', 'clinic')) 
-    return JsonResponse({"data": data})
+        clinics = Clinic.objects.filter(locality=locality)
+    # If all is right convert queryset to dict
+    data = {clinic.id: clinic.clinic for clinic in clinics}
+    return JsonResponse(data)
+
 
 def doctors(request):
     '''
@@ -75,12 +76,12 @@ def doctors(request):
     try:
         clinic = int(clinic)
     except:
-        objects = Doctor.objects.all()
+        doctors = Doctor.objects.all()
     else:
-        objects = Doctor.objects.filter(clinic=clinic)
-    # If all is right convert queryset to list of dicts
-    data = list(objects.values('id', 'firstname__firstname', 'patronymic__patronymic', 'lastname__lastname')) 
-    return JsonResponse({"data": data})
+        doctors = Doctor.objects.filter(clinic=clinic)
+    # If all is right convert queryset to dict
+    data = {doctor.id: '{} {} {}'.format(doctor.lastname, doctor.firstname, doctor.patronymic) for doctor in doctors}
+    return JsonResponse(data)
 
 def patients(request):
     '''
@@ -91,31 +92,33 @@ def patients(request):
     patronymic = request.GET.get('patronymic', '')
     lastname = request.GET.get('lastname', '')
     # Get objects from database
-    objects = Patient.objects.filter(firstname__firstname__icontains=firstname, patronymic__patronymic__icontains=patronymic, lastname__lastname__icontains=lastname)
+    patients = Patient.objects.filter(firstname__firstname__icontains=firstname, patronymic__patronymic__icontains=patronymic, lastname__lastname__icontains=lastname)
     # If all is right convert queryset to list of dicts
     data = list(objects.values('id', 'firstname__firstname', 'patronymic__patronymic', 'lastname__lastname')) 
     return JsonResponse({"data": data})
+    # If all is right convert queryset to dict
+    data = {patient.id: '{} {} {}'.format(patient.lastname, patient.firstname, patient.patronymic) for patient in patients}
+    return JsonResponse(data)
 
 def vaccines(request):
     '''
     Return return all vaccines in database as list of dicts
     '''
     # Get objects from database
-    objects = Vaccine.objects.all()
-    # Convert queryset to list of dicts
-    data = list(objects.values('id', 'vaccine', 'manufacturer', 'country')) 
-    return JsonResponse({"data": data})
+    vaccines = Vaccine.objects.all()
+    # If all is right convert queryset to dict
+    data = {vaccine.id: '{} ({}, {})'.format(vaccine.vaccine, vaccine.manufacturer, vaccine.country) for vaccine in vaccines}
+    return JsonResponse(data)
 
 def diseases(request):
     '''
     Return all diseases in database as list of dicts
     '''
     # Get objects from database
-    objects = Disease.objects.all()
-    # Convert queryset to list of dicts
-    data = list(objects.values('id', 'disease')) 
-    return JsonResponse({"data": data})
-
+    diseases = Disease.objects.all()
+    # If all is right convert queryset to dict
+    data = {disease.id: disease.disease for disease in diseases}
+    return JsonResponse(data)
 
 
 

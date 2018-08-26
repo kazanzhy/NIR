@@ -8,8 +8,8 @@ class VaccinesSearchForm(forms.Form):
 
 class ClinicsSearchForm(forms.Form):
     region = forms.ModelChoiceField(label='Область', queryset = Region.objects.all(), required=False)
-    district = forms.ModelChoiceField(label='Район', queryset = District.objects.all(), required=False)
-    locality = forms.ModelChoiceField(label='Населений пункт', queryset = Locality.objects.all(), required=False)
+    district = forms.ModelChoiceField(label='Район', queryset = District.objects.none(), required=False)
+    locality = forms.ModelChoiceField(label='Населений пункт', queryset = Locality.objects.none(), required=False)
 
 class PatientsSearchForm(forms.Form):
     lastname = forms.CharField(label='Фамілія', max_length=32)
