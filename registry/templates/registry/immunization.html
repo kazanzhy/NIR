@@ -7,9 +7,15 @@
 
 {% block content %}
 
-<a href=""><span class="label label-warning">Редагувати</span></a>  
-<a href=""><span class="label label-info">QR-код</span></a>  
-<a href=""><span class="label label-success">Друкувати</span></a>
+<a href="{% url 'immunization_update' id=immunization.pk%}">
+    <button class="btn btn-default btn-bg" name="immunization_update">Редагувати</button>
+</a>
+<a href="">
+    <button class="btn btn-info btn-bg" name="immunization_qr_code">QR-код</button>
+</a>
+<a href="">
+    <button class="btn btn-warning btn-bg" name="immunization_print">Друкувати</button>
+</a>
 
 <p></p>
 

@@ -48,24 +48,42 @@
     {% endfor %}
 </ul>
 
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script>
+<script type="text/javascript">
 $(document).ready(function(){
-    $('select[name=region]').change(function(){
-        region_id = $(this).val();
-        request_url = '/api/districts/?region=' + region_id;
+    $('#id_region').change(function(){
+        regionId = $(this).val();
         $.ajax({
-            url: request_url,
+            url: '/api/districts/',
+            data: {'region': regionId},
             success: function(data){
+                $('#id_district').empty().append($('<option></option>').val('').html('---------'));
+                $('#id_locality').empty().append($('<option></option>').val('').html('---------'));
                 $.each(data, function(id, district){
-                    $('select[name=district]').append($('<option></option>').val(id).html(district));
+                    $('#id_district').append($('<option></option>').val(id).html(district));
                 });
             }
         });
         return false;
     })
+    $('#id_district').change(function(){
+        districtId = $(this).val();
+        request_url = '/api/localities/';
+        $.ajax({
+            url: request_url,
+            data: {'district': districtId},
+            success: function(data){
+                $('#id_locality').empty().append($('<option></option>').val('').html('---------'));
+                $.each(data, function(id, locality){
+                    $('#id_locality').append($('<option></option>').val(id).html(locality));
+                });
+            }
+        });
+        return false;
+    })
+
 });
 </script>
+
 {% endblock %}
 
 

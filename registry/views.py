@@ -10,22 +10,20 @@ from .forms import *
 
 
 def clinics(request):
-    if request.method == 'POST':
-        form = ClinicsSearchForm(request.POST)
-        if form.is_valid():
-            if form.cleaned_data['locality'] is not None:
-                clinics = Clinic.objects.filter(locality = form.cleaned_data['locality'])
-            elif form.cleaned_data['district'] is not None:
-                form.fields['locality'].queryset = Locality.objects.filter(district = form.cleaned_data['district'])
-                clinics = Clinic.objects.filter(locality__district = form.cleaned_data['district'])
-            elif form.cleaned_data['region'] is not None:
-                form.fields['district'].queryset = District.objects.filter(region = form.cleaned_data['region'])
-                form.fields['locality'].queryset = Locality.objects.filter(district__region = form.cleaned_data['region'])
-                clinics = Clinic.objects.filter(locality__district__region = form.cleaned_data['region'])
-            else:
-                clinics = Clinic.objects.all()
+    form = ClinicsSearchForm(request.GET)
+    if form.is_valid():
+        locality = form.cleaned_data['locality']
+        district = form.cleaned_data['district']
+        region = form.cleaned_data['region']
+        if locality is not None:
+            clinics = Clinic.objects.filter(locality = locality)
+        elif district is not None:
+            clinics = Clinic.objects.filter(locality__district = district)
+        elif region is not None:
+            clinics = Clinic.objects.filter(locality__district__region = region)
+        else:
+            clinics = Clinic.objects.all()
     else:
-        form = ClinicsSearchForm()
         clinics = Clinic.objects.all()
     pages = Paginator(clinics, 20)
     current_page = request.GET.get('page', 1)

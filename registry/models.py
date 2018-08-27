@@ -123,6 +123,7 @@ class Patient(models.Model):
     class Meta:
         verbose_name = "Пацієнт"
         verbose_name_plural = "Пацієнти"
+        ordering = ['-id']
 
 
 class Doctor(models.Model):
@@ -140,7 +141,7 @@ class Doctor(models.Model):
     class Meta:
         verbose_name = "Лікар"
         verbose_name_plural = "Лікарі"
-
+        ordering = ['-id']
 
 class Disease(models.Model):
     """
@@ -192,6 +193,7 @@ class Series(models.Model):
     class Meta:
         verbose_name = "Серія"
         verbose_name_plural = "Серії"
+        ordering = ['-id']
 
 
 class Logbook(models.Model):
@@ -207,6 +209,7 @@ class Logbook(models.Model):
     class Meta:
         verbose_name = "Запис у журналі"
         verbose_name_plural = "Журнал обліку"
+        ordering = ['-id']
 
 
 class Immunization(models.Model):
@@ -229,7 +232,7 @@ class Immunization(models.Model):
     class Meta:
         verbose_name = "Щеплення"
         verbose_name_plural = "Щеплення"
-
+        ordering = ['-id']
 
 class Profile(models.Model):
     """
