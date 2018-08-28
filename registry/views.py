@@ -10,6 +10,7 @@ from .forms import *
 
 
 def clinics(request):
+    # Search block
     form = ClinicsSearchForm(request.GET)
     if form.is_valid():
         locality = form.cleaned_data['locality']
@@ -25,7 +26,8 @@ def clinics(request):
             clinics = Clinic.objects.all()
     else:
         clinics = Clinic.objects.all()
-    pages = Paginator(clinics, 20)
+    # Pagination block
+    pages = Paginator(clinics, 30)
     current_page = request.GET.get('page', 1)
     try:
         current_page = int(current_page)
@@ -35,6 +37,7 @@ def clinics(request):
         current_page = 1
     clinics = pages.page(current_page) 
     num_pages = pages.page_range
+    # Context
     context = {'clinics': clinics, 'form': form, 'num_pages': num_pages, 'current_page': current_page}
     return render(request, 'registry/clinics.html', context)
 
@@ -45,27 +48,48 @@ def clinic(request, id):
     context = {'doctors': doctors, 'clinic': clinic}
     return render(request, 'registry/clinic.html', context)
 
+
 def clinic_add(request):
     if request.method == 'POST':
         form = ClinicAddForm(request.POST)
         if form.is_valid():
-            pass
+            clinic = Clinic()
+            clinic.locality = form.cleaned_data['locality']
+            clinic.clinic = form.cleaned_data['clinic']
+            clinic.logo = form.cleaned_data['logo']
+            clinic.info = form.cleaned_data['info']
+            clinic.save()
+            return redirect(reverse('clinic', args=[clinic.pk]))
     else:
         form = ClinicAddForm()
     context = {'form': form}
     return render(request, 'registry/clinic_add.html', context)
-    
+
 
 def clinic_update(request, id):
-    pass
+    clinic = get_object_or_404(Clinic, pk=id)
+    if request.method == 'POST':
+        form = ClinicAddForm(request.POST)
+        if form.is_valid():
+            clinic.locality = form.cleaned_data['locality']
+            clinic.clinic = form.cleaned_data['clinic']
+            clinic.logo = form.cleaned_data['logo']
+            clinic.info = form.cleaned_data['info']
+            clinic.save()
+            return redirect(reverse('clinic', args=[id]))
+    else:
+        initial = {'locality': clinic.locality, 'clinic': clinic.clinic, 'logo': clinic.logo, 'info': clinic.info}
+        form = ClinicAddForm(initial = initial)
+    context = {'form': form}
+    return render(request, 'registry/clinic_add.html', context)
+
 def clinic_delete(request, id):
     pass
 
 
-
 def doctors(request):
     doctors = Doctor.objects.all()
-    pages = Paginator(doctors, 20)
+    pages = Paginator(doctors, 30)
     current_page = request.GET.get('page', 1)
     try:
         current_page = int(current_page)
@@ -78,11 +102,13 @@ def doctors(request):
     context = {'doctors': doctors, 'num_pages': num_pages, 'current_page': current_page}
     return render(request, 'registry/doctors.html', context)
 
+
 def doctor(request, id):
     doctor = get_object_or_404(Doctor, pk=id)
     immunizations =  Immunization.objects.filter(doctor = doctor)
     context = {'doctor': doctor, 'immunizations': immunizations}
     return render(request, 'registry/doctor.html', context)
+
 
 def doctor_add(request):
     if request.method == 'POST':
@@ -92,23 +118,39 @@ def doctor_add(request):
             last = Lastname.objects.get_or_create(lastname = form.cleaned_data['lastname'])[0]
             first = Firstname.objects.get_or_create(firstname = form.cleaned_data['firstname'])[0]
             patro = Patronymic.objects.get_or_create(patronymic = form.cleaned_data['patronymic'])[0]
-            response, created = Doctor.objects.get_or_create(clinic=clinic, lastname=last, firstname=first, patronymic=patro)
-            if created:
-                return redirect(reverse('doctors'))
+            doctor, created = Doctor.objects.get_or_create(clinic=clinic, lastname=last, firstname=first, patronymic=patro)
+            return redirect(reverse('doctor', args=[doctor.pk]))
     else:
         form = DoctorAddForm()
     context = {'form': form}
     return render(request, 'registry/doctor_add.html', context)
 
+
 def doctor_update(request, id):
-    pass
+    doctor = get_object_or_404(Doctor, pk=id)
+    if request.method == 'POST':
+        form = DoctorAddForm(request.POST)
+        if form.is_valid():
+            doctor.clinic = form.cleaned_data['clinic']
+            doctor.lastname = Lastname.objects.get_or_create(lastname = form.cleaned_data['lastname'])[0]
+            doctor.firstname = Firstname.objects.get_or_create(firstname = form.cleaned_data['firstname'])[0]
+            doctor.patronymic = Patronymic.objects.get_or_create(patronymic = form.cleaned_data['patronymic'])[0]
+            doctor.save()
+            return redirect(reverse('doctor', args=[doctor.pk]))
+    else:
+        initial = {'clinic':doctor.clinic, 'lastname':doctor.lastname, 'firstname':doctor.firstname, 'patronymic':doctor.patronymic}
+        form = DoctorAddForm(initial = initial)
+    context = {'form': form}
+    return render(request, 'registry/doctor_add.html', context)
+
 def doctor_delete(request, id):
     pass
+
 
 def patients(request):
     form = PatientsSearchForm()
     patients = Patient.objects.all()
-    pages = Paginator(patients, 20)
+    pages = Paginator(patients, 30)
     current_page = request.GET.get('page', 1)
     try:
         current_page = int(current_page)
@@ -121,16 +163,37 @@ def patients(request):
     context = {'patients': patients, 'form': form, 'num_pages': num_pages, 'current_page': current_page}
     return render(request, 'registry/patients.html', context)
 
+
 def patient(request, id):
     patient = get_object_or_404(Patient, pk=id)
     immunizations =  Immunization.objects.filter(patient = patient)
     context = {'patient': patient, 'immunizations': immunizations}
     return render(request, 'registry/patient.html', context)
 
+
 def patient_add(request):
     if request.method == 'POST':
         form = PatientAddForm(request.POST)
-        patient = Patient()
+        if form.is_valid():
+            patient = Patient()
+            patient.lastname = Lastname.objects.get_or_create(lastname = form.cleaned_data['lastname'])[0]
+            patient.firstname = Firstname.objects.get_or_create(firstname = form.cleaned_data['firstname'])[0]
+            patient.patronymic = Patronymic.objects.get_or_create(patronymic = form.cleaned_data['patronymic'])[0]
+            patient.sex = form.cleaned_data['sex']
+            patient.birth = form.cleaned_data['birth']
+            patient.phone = form.cleaned_data['phone']
+            patient.save()
+            return redirect(reverse('patient', args=[patient.pk]))
+    else:
+        form = PatientAddForm()
+    context = {'form': form}
+    return render(request, 'registry/patient_add.html', context)
+
+
+def patient_update(request, id):
+    patient = get_object_or_404(Patient, pk=id)
+    if request.method == 'POST':
+        form = PatientAddForm(request.POST)
         if form.is_valid():
             patient.lastname = Lastname.objects.get_or_create(lastname = form.cleaned_data['lastname'])[0]
             patient.firstname = Firstname.objects.get_or_create(firstname = form.cleaned_data['firstname'])[0]
@@ -139,21 +202,22 @@ def patient_add(request):
             patient.birth = form.cleaned_data['birth']
             patient.phone = form.cleaned_data['phone']
             patient.save()
-            return redirect(reverse('patients'))
+            return redirect(reverse('patient', args=[patient.pk]))
     else:
-        form = PatientAddForm()
+        initial = {'lastname':patient.lastname, 'firstname':patient.firstname, 'patronymic':patient.patronymic, 
+                    'sex':patient.sex, 'birth':patient.birth, 'phone':patient.phone}
+        form = PatientAddForm(initial = initial)
     context = {'form': form}
     return render(request, 'registry/patient_add.html', context)
 
-def patient_update(request, id):
-    pass
+
 def patient_delete(request, id):
     pass
 
 
 def immunizations(request):
     immunizations = Immunization.objects.all()
-    pages = Paginator(immunizations, 20)
+    pages = Paginator(immunizations, 30)
     current_page = request.GET.get('page', 1)
     try:
         current_page = int(current_page)
@@ -189,7 +253,7 @@ def immunization_delete(request, id):
 
 def logbook(request):
     logbook = Logbook.objects.all()
-    pages = Paginator(logbook, 20)
+    pages = Paginator(logbook, 30)
     current_page = request.GET.get('page', 1)
     try:
         current_page = int(current_page)

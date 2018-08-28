@@ -103,7 +103,7 @@ class Clinic(models.Model):
     class Meta:
         verbose_name = "Клініка"
         verbose_name_plural = "Клініки"
-        ordering = ['clinic']
+        ordering = ['-id']
 
 
 class Patient(models.Model):

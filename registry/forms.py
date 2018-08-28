@@ -25,9 +25,9 @@ class ClinicAddForm(forms.Form):
     region = forms.ModelChoiceField(label='Область', queryset = Region.objects.all(), required=False)
     district = forms.ModelChoiceField(label='Район', queryset = District.objects.all(), required=False)
     locality = forms.ModelChoiceField(label='Населений пункт', queryset = Locality.objects.all())
-    clinic = forms.CharField(label='Назва', max_length=64)
+    clinic = forms.CharField(label='Назва', max_length=64, widget=forms.TextInput(attrs={'size':40}))
     logo = forms.ImageField(label='Логотип', required=False)
-    info = forms.CharField(label='Інформація', max_length=265, required=False, widget=forms.Textarea)
+    info = forms.CharField(label='Інформація', max_length=265, required=False, widget=forms.Textarea(attrs={'rows':4, 'cols':40}))
 
 class DoctorAddForm(forms.Form):
     clinic = forms.ModelChoiceField(label='Клініка', queryset = Clinic.objects.all())
