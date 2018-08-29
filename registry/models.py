@@ -223,7 +223,7 @@ class Immunization(models.Model):
     general_reaction = models.CharField(max_length=256, null=True, blank=True)
     local_reaction = models.CharField(max_length=256, null=True, blank=True)
     contraindications = models.CharField(max_length=256, null=True, blank=True)
-    dose = models.IntegerField(default=1)
+    dose = models.FloatField(default=1)
     date = models.DateField(default=timezone.localdate)
     def __str__(self):
         return '{} - {} - {}'.format(self.patient, self.series, self.doctor)
@@ -260,27 +260,5 @@ def create_user_profile(sender, instance, created, **kwargs):
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
 '''
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
