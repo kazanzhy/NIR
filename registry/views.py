@@ -253,6 +253,7 @@ def immunization_add(request):
             return redirect(reverse('immunization', args=[immunization.pk]))
     else:
         form = ImmunizationAddForm()
+    context = {'form': form}
     return render(request, 'registry/immunization_add.html', context)
 
 def immunization_update(request, id):
