@@ -238,12 +238,21 @@ def immunization(request, id):
 def immunization_add(request):
     if request.method == 'POST':
         form = ImmunizationAddForm(request.POST)
-        patient = Patient()
         if form.is_valid():
-            pass
+            immunization = Immunization()
+            immunization.clinic = form.cleaned_data['clinic']
+            immunization.doctor = form.cleaned_data['doctor']
+            immunization.series = form.cleaned_data['series']
+            immunization.patient = form.cleaned_data['patient']
+            immunization.general_reaction = form.cleaned_data['general_reaction']
+            immunization.local_reaction = form.cleaned_data['local_reaction']
+            immunization.contraindications = form.cleaned_data['contraindications']
+            immunization.dose = form.cleaned_data['dose']
+            immunization.date = form.cleaned_data['date']
+            immunization.save()
+            return redirect(reverse('immunization', args=[immunization.pk]))
     else:
         form = ImmunizationAddForm()
-    context = {'form': form}
     return render(request, 'registry/immunization_add.html', context)
 
 def immunization_update(request, id):
