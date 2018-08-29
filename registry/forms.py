@@ -44,10 +44,14 @@ class PatientAddForm(forms.Form):
     phone = forms.CharField(label='Телефон', initial= '+380', max_length=17)
 
 class ImmunizationAddForm(forms.Form):
-    patient = forms.ModelChoiceField(label='Пацієнт', queryset = Patient.objects.all(), required=False)
-    doctor = forms.ModelChoiceField(label='Доктор', queryset = Doctor.objects.all(), required=False)
+    patient = forms.ModelChoiceField(label='Пацієнт', queryset = Patient.objects.all())
+    doctor = forms.ModelChoiceField(label='Доктор', queryset = Doctor.objects.all())
+    vaccine = forms.ModelChoiceField(label='Вакцина', queryset = Vaccine.objects.all())
     series = forms.CharField(label='Серія', max_length=32)
     dose = forms.CharField(label='Доза', max_length=32)
+    general_reaction = forms.CharField(label='Серія', max_length=128, required=False)
+    local_reaction = forms.CharField(label='Серія', max_length=128, required=False)
+    contraindications = forms.CharField(label='Серія', max_length=128, required=False)
     date = forms.DateField(label='Дата', widget=forms.widgets.DateInput(format='%d.%m.%Y'))
 
 class LogbookAddForm(forms.Form):
