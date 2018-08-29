@@ -49,9 +49,9 @@ class ImmunizationAddForm(forms.Form):
     vaccine = forms.ModelChoiceField(label='Вакцина', queryset = Vaccine.objects.all())
     series = forms.CharField(label='Серія', max_length=32)
     dose = forms.FloatField(label='Доза')
-    general_reaction = forms.CharField(label='Серія', max_length=128, required=False)
-    local_reaction = forms.CharField(label='Серія', max_length=128, required=False)
-    contraindications = forms.CharField(label='Серія', max_length=128, required=False)
+    general_reaction = forms.CharField(label='Загальна реакція', max_length=128, required=False)
+    local_reaction = forms.CharField(label='Місцева реакція', max_length=128, required=False)
+    contraindications = forms.CharField(label='Протипоказання', max_length=128, required=False)
     date = forms.DateField(label='Дата', widget=forms.widgets.DateInput(format='%d.%m.%Y'))
 
 class LogbookAddForm(forms.Form):
