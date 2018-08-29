@@ -11,12 +11,13 @@ urlpatterns = [
     path('clinic/<int:id>', views.clinic, name='clinic'),
     path('clinic/<int:id>/update', views.clinic_update, name='clinic_update'),
     path('clinic/<int:id>/delete', views.clinic_delete, name='clinic_delete'),
+    path('clinic/<int:id>/doctor/add', views.doctor_add, name='doctor_add'),
+    path('clinic/<int:id>/logbook/add', views.logbook_add, name='logbook_add'),
 
-    path('doctors/', views.doctors, name='doctors'),
-    path('doctor/add', views.doctor_add, name='doctor_add'),
     path('doctor/<int:id>', views.doctor, name='doctor'),
     path('doctor/<int:id>/update', views.doctor_update, name='doctor_update'),
     path('doctor/<int:id>/delete', views.doctor_delete, name='doctor_delete'),
+    path('doctors/', views.doctors, name='doctors'),
 
     path('patients/', views.patients, name='patients'),
     path('patient/add', views.patient_add, name='patient_add'),
@@ -31,7 +32,6 @@ urlpatterns = [
     path('immunization/<int:id>/delete', views.immunization_delete, name='immunization_delete'),
 
     path('logbook/', views.logbook, name='logbook'),
-    path('logbook/add', views.logbook_add, name='logbook_add'),
 
     path('profile/', views.profile, name='profile'),
     path('profile/edit', views.profile_edit, name='profile_edit'),

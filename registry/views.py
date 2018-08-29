@@ -110,7 +110,7 @@ def doctor(request, id):
     return render(request, 'registry/doctor.html', context)
 
 
-def doctor_add(request):
+def doctor_add(request, id):
     if request.method == 'POST':
         form = DoctorAddForm(request.POST)
         if form.is_valid():
@@ -122,6 +122,7 @@ def doctor_add(request):
             return redirect(reverse('doctor', args=[doctor.pk]))
     else:
         form = DoctorAddForm()
+        form.fields['clinic'].queryset = Clinic.objects.filter(pk=id)
     context = {'form': form}
     return render(request, 'registry/doctor_add.html', context)
 
@@ -276,13 +277,14 @@ def logbook(request):
     context = {'logbook': logbook, 'num_pages': num_pages, 'current_page': current_page}
     return render(request, 'registry/logbook.html', context)
 
-def logbook_add(request):
+def logbook_add(request, id):
     if request.method == 'POST':
         form = LogbookAddForm(request.POST)
         if form.is_valid():
             pass
     else:
         form = LogbookAddForm()
+        form.fields['clinic'].queryset = Clinic.objects.filter(pk=id)
     context = {'form': form}
     return render(request, 'registry/logbook_add.html', context)
 

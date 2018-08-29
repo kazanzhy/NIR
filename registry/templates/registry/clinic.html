@@ -20,9 +20,9 @@
 </div>
 
 <p></p>
-
-<a href="{% url 'doctor_add' %}"><button class="btn btn-primary btn-bg " name="clinic_add">Додати лікаря</button></a>
 <a href="{% url 'clinic_update' id=clinic.pk %}"><button class="btn btn-default btn-bg " name="clinic_update">Редагувати</button></a>
+<a href="{% url 'doctor_add' id=clinic.pk %}"><button class="btn btn-primary btn-bg " name="clinic_add">Додати лікаря</button></a>
+<a href="{% url 'logbook_add' id=clinic.pk %}"><button class="btn btn-warning btn-bg " name="clinic_add">Додати надходження</button></a>
 
 <p></p>
 

@@ -113,7 +113,7 @@ class Patient(models.Model):
     firstname = models.ForeignKey(Firstname, on_delete=models.SET_NULL, null=True, blank=True)
     patronymic = models.ForeignKey(Patronymic, on_delete=models.SET_NULL, null=True, blank=True)
     lastname = models.ForeignKey(Lastname, on_delete=models.SET_NULL, null=True, blank=True)
-    phone = models.CharField(max_length=17, null=True, blank=True)
+    phone = models.CharField(max_length=20, null=True, blank=True)
     birth = models.DateField(null=True, blank=True)
     sex = models.BooleanField() # 1 for Male and 0 for Female
     def __str__(self):
@@ -203,7 +203,8 @@ class Logbook(models.Model):
     clinic = models.ForeignKey(Clinic, on_delete=models.SET_NULL, null=True, blank=True)
     series = models.ForeignKey(Series, on_delete=models.SET_NULL, null=True, blank=True)
     doses = models.IntegerField(null=True, blank=True)
-    date = models.DateField()
+    arrival = models.BooleanField(null=True, blank=True)
+    date = models.DateField(null=True, blank=True)
     def __str__(self):
         return '{}: {} #{}. {}'.format(self.clinic, self.series, self.doses, self.date)
     class Meta:
