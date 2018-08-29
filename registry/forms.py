@@ -48,7 +48,7 @@ class ImmunizationAddForm(forms.Form):
     doctor = forms.ModelChoiceField(label='Доктор', queryset = Doctor.objects.all())
     vaccine = forms.ModelChoiceField(label='Вакцина', queryset = Vaccine.objects.all())
     series = forms.CharField(label='Серія', max_length=32)
-    dose = forms.FloatField(label='Доза', max_length=32)
+    dose = forms.FloatField(label='Доза')
     general_reaction = forms.CharField(label='Серія', max_length=128, required=False)
     local_reaction = forms.CharField(label='Серія', max_length=128, required=False)
     contraindications = forms.CharField(label='Серія', max_length=128, required=False)
@@ -66,17 +66,6 @@ class ProfileEditForm(forms.Form):
     district = forms.ModelChoiceField(label='Район', queryset = District.objects.all(), required=False)
     locality = forms.ModelChoiceField(label='Населений пункт', queryset = Locality.objects.all(), required=False)
     clinic = forms.ModelChoiceField(label='Клініка', required=False, queryset = Clinic.objects.all())
-
-
-
-
-
-
-
-
-
-
-
 
 
 
