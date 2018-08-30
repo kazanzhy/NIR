@@ -10,22 +10,30 @@
 {% block content %}
 
 <div class="media">
+  <div class="media-left">
+    <img width="200" src="{{ immunization.clinic.logo.url }}"/>
+  </div>
+
   <div class="media-body">
-    <h2 class="media-heading">Довідка</h2>
+    <center><h1 class="media-heading">Довідка</h1></center>
     <p>Пацієнт: {{ immunization.patient.lastname }} {{ immunization.patient.firstname }} {{ immunization.patient.patronymic }}</p>
     <p>Вакцина: {{ immunization.series.vaccine }}</p>
     <p>Виробник: {{ immunization.series.vaccine.manufacturer }}</p>
     <p>Країна: {{ immunization.series.vaccine.country }}</p>
     <p>Серія: {{ immunization.series }}</p>
     <p>Доза: {{ immunization.dose }}</p>
+    <p>Загальна реакція: {% if immunization.general_reaction %} {{ immunization.general_reaction }} {% else %} - {% endif %}</p>
+    <p>Місцева реакція: {% if immunization.local_reaction %} {{ immunization.local_reaction }} {% else %} - {% endif %}</p>
+    <p>Протипоказання: {% if immunization.contraindications %} {{ immunization.contraindications }} {% else %} - {% endif %}</p>
     <p>Дата: {{ immunization.date }}</p>
     <p>Лікар:  {{ immunization.doctor.lastname }} {{ immunization.doctor.firstname }} {{ immunization.doctor.patronymic }}</p>
+    <p>Клініка: {{ immunization.clinic }}</p>
   </div>
   <div class="media-right">
     <img width="200" src="data:image/png;base64,{{qr}}"/>
   </div>
-</div>
 
+</div>
 
 
 

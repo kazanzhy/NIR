@@ -50,7 +50,7 @@ class PatientAddForm(forms.Form):
     phone = forms.CharField(label='Телефон', initial= '+380', max_length=17)
 
 class ImmunizationAddForm(forms.Form):
-    years_to_display = range(datetime.datetime.now().year - 60, datetime.datetime.now().year)
+    years_to_display = range(datetime.datetime.now().year, datetime.datetime.now().year - 60, -1)
     patient = forms.ModelChoiceField(label='Пацієнт', queryset = Patient.objects.all())
     doctor = forms.ModelChoiceField(label='Доктор', queryset = Doctor.objects.all())
     vaccine = forms.ModelChoiceField(label='Вакцина', queryset = Vaccine.objects.all())

@@ -24,13 +24,15 @@ urlpatterns = [
     path('patient/<int:id>', views.patient, name='patient'),
     path('patient/<int:id>/update', views.patient_update, name='patient_update'),
     path('patient/<int:id>/delete', views.patient_delete, name='patient_delete'),
-    path('patient/<int:id>/delete', views.patient_delete, name='patient_delete'),
+    path('patient/<int:id>/print', views.patient_print, name='patient_print'),
+    path('patient/<int:id>/immunization/add', views.immunization_add, name='immunization_add'),
+
     path('immunizations/', views.immunizations, name='immunizations'),
-    path('immunization/add', views.immunization_add, name='immunization_add'),
     path('immunization/<int:id>', views.immunization, name='immunization'),
     path('immunization/<int:id>/update', views.immunization_update, name='immunization_update'),
     path('immunization/<int:id>/delete', views.immunization_delete, name='immunization_delete'),
     path('immunization/<int:id>/print', views.immunization_print, name='immunization_print'),
+
     path('logbook/', views.logbook, name='logbook'),
 
     path('profile/', views.profile, name='profile'),

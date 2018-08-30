@@ -27,6 +27,9 @@
 <p>Серія: {{ immunization.series }}</p>
 <p>Доза: {{ immunization.dose }}</p>
 <p>Дата: {{ immunization.date }}</p>
+<p>Загальна реакція: {{ immunization.general_reaction }}</p>
+<p>Місцева реакція: {{ immunization.local_reaction }}</p>
+<p>Протипоказання: {{ immunization.contraindications }}</p>
 <p>
     Лікар: 
     <a href="{{ immunization.doctor.get_registry_url }}">

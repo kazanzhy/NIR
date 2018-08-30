@@ -4,6 +4,8 @@
     <title>Для лікарів - {{ patient.lastname }}</title>
 {% endblock %}
 
+{% block navbar %}
+{% endblock %}
 
 {% block content %}
 <div class="media">
@@ -16,9 +18,6 @@
 
 <p></p>
 
-<a href="{% url 'patient_update' id=patient.pk%}"><button class="btn btn-default btn-bg" name="patient_update">Редагувати</button></a>
-<a href="{% url 'immunization_add' id=patient.pk %}"><button class="btn btn-primary btn-bg" name="immunization_add">Додати щеплення</button></a>
-<a href="{% url 'patient_print' id=patient.pk%}"><button class="btn btn-warning btn-bg" name="patient_print">Друкувати</button></a>
 
 <p></p>
 
@@ -30,7 +29,6 @@
         <th>Доза</th>
         <th>Дата</th>
         <th>Лікар</th>
-        <th>Докладніше</th>
     </tr>
     </thead>
     <tbody>
@@ -43,10 +41,9 @@
         <td><a href="{{ immunization.doctor.get_registry_url }}">
             {{ immunization.doctor.lastname }} {{ immunization.doctor.firstname }} {{ immunization.doctor.patronymic }}
         </a></td>
-        <td><a href="{{ immunization.get_registry_url }}">Докладніше</a></td>
     </tr>
     {% endfor %}
     </tbody>
 </table>
-
+    <img width="200" src="data:image/png;base64,{{qr}}"/>
 {% endblock %}

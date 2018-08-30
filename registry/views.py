@@ -3,8 +3,8 @@ from django.views import generic
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.paginator import Paginator
+from django.http import HttpResponseForbidden
 
-from django.http import HttpResponse
 import qrcode
 import base64
 import io
@@ -88,7 +88,7 @@ def clinic_update(request, id):
     return render(request, 'registry/clinic_add.html', context)
 
 def clinic_delete(request, id):
-    pass
+    return HttpResponseForbidden()
 
 
 def doctors(request):
@@ -149,7 +149,7 @@ def doctor_update(request, id):
     return render(request, 'registry/doctor_add.html', context)
 
 def doctor_delete(request, id):
-    pass
+    return HttpResponseForbidden()
 
 
 def patients(request):
@@ -217,8 +217,17 @@ def patient_update(request, id):
 
 
 def patient_delete(request, id):
-    pass
+    return HttpResponseForbidden()
 
+def patient_print(request, id):
+    qr = qrcode.make(request.get_host() + request.path)
+    buff = io.BytesIO()
+    qr.save(buff, 'PNG')
+    qrb64 = base64.b64encode(buff.getvalue()).decode('utf-8') 
+    patient = get_object_or_404(Patient, pk=id)
+    immunizations =  Immunization.objects.filter(patient = patient)
+    context = {'patient': patient, 'immunizations': immunizations, 'qr': qrb64}
+    return render(request, 'registry/patient_certificate.html', context)
 
 def immunizations(request):
     immunizations = Immunization.objects.all()
@@ -240,7 +249,7 @@ def immunization(request, id):
     context = {'immunization': immunization}
     return render(request, 'registry/immunization.html', context)
 
-def immunization_add(request):
+def immunization_add(request, id):
     if request.method == 'POST':
         form = ImmunizationAddForm(request.POST)
         if form.is_valid():
@@ -258,21 +267,22 @@ def immunization_add(request):
             return redirect(reverse('immunization', args=[immunization.pk]))
     else:
         form = ImmunizationAddForm()
+        form.fields['patient'].queryset = Patient.objects.filter(pk=id)
     context = {'form': form}
     return render(request, 'registry/immunization_add.html', context)
 
 def immunization_update(request, id):
     pass
 def immunization_delete(request, id):
-    pass
+    return HttpResponseForbidden()
 
 def immunization_print(request, id):
     immunization = get_object_or_404(Immunization, pk=id)
     qr = qrcode.make(request.get_host() + request.path)
     buff = io.BytesIO()
     qr.save(buff, 'PNG')
-    qr = base64.b64encode(buff.getvalue()).decode("utf-8") 
-    context = {'immunization': immunization, 'qr': qr}
+    qrb64 = base64.b64encode(buff.getvalue()).decode("utf-8") 
+    context = {'immunization': immunization, 'qr': qrb64}
     return render(request, 'registry/immunization_certificate.html', context)
 
 def logbook(request):
