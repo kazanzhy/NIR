@@ -31,6 +31,7 @@
         <th>Доза</th>
         <th>Дата</th>
         <th>Лікар</th>
+        <th>Докладніше</th>
     </tr>
     </thead>
     <tbody>
@@ -43,6 +44,7 @@
         <td><a href="{{ immunization.doctor.get_registry_url }}">
             {{ immunization.doctor.lastname }} {{ immunization.doctor.firstname }} {{ immunization.doctor.patronymic }}
         </a></td>
+        <td><a href="{{ immunization.get_registry_url }}">Докладніше</a></td>
     </tr>
     {% endfor %}
     </tbody>

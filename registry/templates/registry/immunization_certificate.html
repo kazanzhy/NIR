@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <title>Для лікарів - Довідка</title>
+{% endblock %}
+
+{% block navbar %}
+{% endblock %}
+
+{% block content %}
+
+<div class="media">
+  <div class="media-body">
+    <h2 class="media-heading">Довідка</h2>
+    <p>Пацієнт: {{ immunization.patient.lastname }} {{ immunization.patient.firstname }} {{ immunization.patient.patronymic }}</p>
+    <p>Вакцина: {{ immunization.series.vaccine }}</p>
+    <p>Виробник: {{ immunization.series.vaccine.manufacturer }}</p>
+    <p>Країна: {{ immunization.series.vaccine.country }}</p>
+    <p>Серія: {{ immunization.series }}</p>
+    <p>Доза: {{ immunization.dose }}</p>
+    <p>Дата: {{ immunization.date }}</p>
+    <p>Лікар:  {{ immunization.doctor.lastname }} {{ immunization.doctor.firstname }} {{ immunization.doctor.patronymic }}</p>
+  </div>
+  <div class="media-right">
+    <img width="200" src="data:image/png;base64,{{qr}}"/>
+  </div>
+</div>
+
+
+
+
+{% endblock %}

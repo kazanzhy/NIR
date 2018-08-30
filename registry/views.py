@@ -4,6 +4,10 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.paginator import Paginator
 
+from django.http import HttpResponse
+import qrcode
+import base64
+import io
 
 from .models import *
 from .forms import *
@@ -262,6 +266,15 @@ def immunization_update(request, id):
 def immunization_delete(request, id):
     pass
 
+def immunization_print(request, id):
+    immunization = get_object_or_404(Immunization, pk=id)
+    qr = qrcode.make(request.get_host() + request.path)
+    buff = io.BytesIO()
+    qr.save(buff, 'PNG')
+    qr = base64.b64encode(buff.getvalue()).decode("utf-8") 
+    context = {'immunization': immunization, 'qr': qr}
+    return render(request, 'registry/immunization_certificate.html', context)
+
 def logbook(request):
     logbook = Logbook.objects.all()
     pages = Paginator(logbook, 30)
@@ -276,6 +289,7 @@ def logbook(request):
     num_pages = pages.page_range
     context = {'logbook': logbook, 'num_pages': num_pages, 'current_page': current_page}
     return render(request, 'registry/logbook.html', context)
+
 
 def logbook_add(request, id):
     if request.method == 'POST':

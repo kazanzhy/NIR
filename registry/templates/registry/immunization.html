@@ -10,10 +10,8 @@
 <a href="{% url 'immunization_update' id=immunization.pk%}">
     <button class="btn btn-default btn-bg" name="immunization_update">Редагувати</button>
 </a>
-<a href="">
-    <button class="btn btn-info btn-bg" name="immunization_qr_code">QR-код</button>
-</a>
-<a href="">
+
+<a href="{% url 'immunization_print' id=immunization.pk%}">
     <button class="btn btn-warning btn-bg" name="immunization_print">Друкувати</button>
 </a>
 
