@@ -8,42 +8,92 @@
 {% endblock %}
 
 {% block content %}
-<div class="media">
-  <div class="media-body">
-    <h2 class="media-heading">{{ patient.lastname }} {{ patient.firstname }} {{ patient.patronymic }}</h2>
-    <p>Дата народження: <b>{{ patient.birth }}</b></p>
-    <p><span class="glyphicon glyphicon-earphone"></span> Телефон: <b>{{ patient.phone }}</b></p>
-  </div>
-</div>
 
-<p></p>
+<br>
+<table class="table table-bordered">
+    <tr>
+        <td colspan="5">
+        <center>
+        <h1>СЕРТИФІКАТ ЩЕПЛЕНЬ</h1><h3><i>CERTIFICATE OF VACCINATION OR PROPHYLAXIS</i></h3>
+        </center>
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="2">Засвідчує, що [Фамілія, Ім'я, По-батькові]<br>This is to certify that [name]</td>
+        <td colspan="2"><b>{{ patient.lastname }} {{ patient.firstname }} {{ patient.patronymic }}</b></td>
+        <td rowspan="4"><center><img width="200" src="data:image/png;base64,{{qr}}"/></center></td>
+    </tr>
+
+    <tr>
+        <td>дата народження<br>date of birth</td>
+        <td><b>{{ patient.birth | date:"d.m.Y"}}</b></td>
+        <td>стать<br>sex</td>
+        <td><b>{% if patient.sex %}чоловіча<br>male{% else %}жіноча<br>female{% endif %}</b></td>
+    </tr>
+    <tr>
+        <td colspan="2">національність<br>nationality</td>
+        <td colspan="2"><b>Україна<br>Ukraine</b></b></td>
+    </tr>
+    <tr>
+        <td colspan="2">документ що посвідчує особу<br>national identification document, if applicable</td>
+        <td colspan="2"><br>_____________________________</td>
+    </tr>
+    <tr>
+        <td colspan="2">підпис<br>whose signature follows</td>
+        <td colspan="2"><br>_____________________________</td>
+    </tr>
+
+    <tr>
+        <td colspan="5">на зазначену дату був(ла) щеплений(а) або отримана профілактика проти: (назва хвороби або стану)<br>has on the date indicated been vaccinated or received prophylaxis against: (name of disease or condition)</td>
+    </tr>
+    <tr>
+        <td colspan="5"><br></td>
+    </tr>
+    <tr>
+        <td colspan="5">відповідно до Міжнародних медико-санітарних правил<br>in accordance with the International Health Regulations</td>
+    </tr>
+
+</table>
 
 
-<p></p>
 
 <table class="table table-bordered">
-    <thead>
+    <tr><td colspan="7"></td></tr>
     <tr>
-        <th>Вакцина</th>
-        <th>Серія</th>
-        <th>Доза</th>
-        <th>Дата</th>
-        <th>Лікар</th>
+        <th style="width:20%">Захворювання<br>Disease targeted</th>
+        <th style="width:10%">Дата<br>Date</th>
+        <th style="width:40%" colspan="3">Виробник, назва препарату та серія вакцини<br>Manufacturer, brand name 
+and batch no. of vaccine</th>
+        <th style="width:10%">Наступна вакцинація (дата)<br>Next booster (date)</th>
+        <th style="width:20%">Печатка та підпис лікаря<br>Official stamp and signature</th>
     </tr>
-    </thead>
-    <tbody>
     {% for immunization in immunizations %}
     <tr>
-        <td><a href="{{ immunization.series.vaccine.get_info_url }}">{{ immunization.series.vaccine }}</a></td>
-        <td>{{ immunization.series }}</td>
-        <td>{{ immunization.dose }}</td>
-        <td>{{ immunization.date }}</td>
-        <td><a href="{{ immunization.doctor.get_registry_url }}">
-            {{ immunization.doctor.lastname }} {{ immunization.doctor.firstname }} {{ immunization.doctor.patronymic }}
-        </a></td>
+        <td>{% for disease in immunization.series.vaccine.disease.all %}<p>{{disease}} (<i>{{disease.disease_en}}</i>)<p>{% endfor %}</td>
+        <td>{{immunization.date | date:"d.m.Y"}}</td>
+        <td>{{immunization.series.vaccine.manufacturer}} (<i>{{immunization.series.vaccine.manufacturer_en}}</i>)</td>
+        <td>{{immunization.series.vaccine.vaccine}} (<i>{{immunization.series.vaccine.vaccine_en}}</i>)</td>
+        <td>{{immunization.series}}</td>
+        <td></td>
+        <td>{{immunization.doctor.lastname}} {{immunization.doctor.firstname|make_list|first}}. {{immunization.doctor.patronymic|make_list|first}}.</td>
     </tr>
     {% endfor %}
-    </tbody>
 </table>
-    <img width="200" src="data:image/png;base64,{{qr}}"/>
+
 {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

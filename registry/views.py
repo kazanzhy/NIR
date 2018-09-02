@@ -281,7 +281,7 @@ def immunization_print(request, id):
     qr = qrcode.make(request.get_host() + request.path)
     buff = io.BytesIO()
     qr.save(buff, 'PNG')
-    qrb64 = base64.b64encode(buff.getvalue()).decode("utf-8") 
+    qrb64 = base64.b64encode(buff.getvalue()).decode("utf-8")
     context = {'immunization': immunization, 'qr': qrb64}
     return render(request, 'registry/immunization_certificate.html', context)
 
