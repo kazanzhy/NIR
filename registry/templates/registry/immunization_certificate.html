@@ -9,32 +9,35 @@
 
 {% block content %}
 
-<div class="media">
-  <div class="media-left">
-    <img width="200" src="{{ immunization.clinic.logo.url }}"/>
-  </div>
+<br>
+<table class="table table-bordered">
+    <tr>
+        <th style="width:20%">{% if immunization.clinic.logo %}<img width="200" src="{{ immunization.clinic.logo.url }}"/>{% endif %}</th>
+        <th style="width:60%"><center><h1>Довідка</h1>№ {{ immunization.id }} від {{ immunization.date }}</center></th>
+        <th style="width:20%"><img width="200" src="data:image/png;base64,{{qr}}"/></th>
+    </tr>
+    <tr>
+        <td colspan="3">
+Засвідчує, що <b>{{ immunization.patient.lastname }} {{ immunization.patient.firstname }} {{ immunization.patient.patronymic }}</b>, <b>{{ immunization.patient.birth }}</b> н. отримав імунопрофілактику проти захворювань {% for disease in immunization.series.vaccine.disease.all %}<b>{{ disease }}</b>{% if not forloop.last  %}, {% endif %}{% endfor %} у медичному закладі <b>{{ immunization.clinic }}</b> препаратом <b>{{ immunization.series.vaccine }}</b> серії <b>{{ immunization.series }}</b> у дозі <b>{{ immunization.dose }}</b>.
+<br>Препарат виробництва <b>{{ immunization.series.vaccine.manufacturer }} ({{ immunization.series.vaccine.country }})</b> придатний до <b>{{ immunization.series.expiration }}</b>
+<br>Загальна реакція: <b>{% if immunization.general_reaction %} {{ immunization.general_reaction }} {% else %} - {% endif %}</b>
+<br>Місцева реакція: <b>{% if immunization.local_reaction %} {{ immunization.local_reaction }} {% else %} - {% endif %}</b>
+<br>Протипоказання: <b>{% if immunization.contraindications %} {{ immunization.contraindications }} {% else %} - {% endif %}</b>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Дата:<br>{{ immunization.date }}
+        </td>
+        <td>
+            <left>Печатка закладу</left>
+        </td>
+        <td>
+            Лікар:<br>{{ immunization.doctor.lastname }} {{ immunization.doctor.firstname }} {{ immunization.doctor.patronymic }}<br>__________
+        </td>
+    </tr>
 
-  <div class="media-body">
-    <center><h1 class="media-heading">Довідка</h1></center>
-    <p>Пацієнт: {{ immunization.patient.lastname }} {{ immunization.patient.firstname }} {{ immunization.patient.patronymic }}</p>
-    <p>Вакцина: {{ immunization.series.vaccine }}</p>
-    <p>Виробник: {{ immunization.series.vaccine.manufacturer }}</p>
-    <p>Країна: {{ immunization.series.vaccine.country }}</p>
-    <p>Серія: {{ immunization.series }}</p>
-    <p>Доза: {{ immunization.dose }}</p>
-    <p>Загальна реакція: {% if immunization.general_reaction %} {{ immunization.general_reaction }} {% else %} - {% endif %}</p>
-    <p>Місцева реакція: {% if immunization.local_reaction %} {{ immunization.local_reaction }} {% else %} - {% endif %}</p>
-    <p>Протипоказання: {% if immunization.contraindications %} {{ immunization.contraindications }} {% else %} - {% endif %}</p>
-    <p>Дата: {{ immunization.date }}</p>
-    <p>Лікар:  {{ immunization.doctor.lastname }} {{ immunization.doctor.firstname }} {{ immunization.doctor.patronymic }}</p>
-    <p>Клініка: {{ immunization.clinic }}</p>
-  </div>
-  <div class="media-right">
-    <img width="200" src="data:image/png;base64,{{qr}}"/>
-  </div>
-
-</div>
-
+</table>
 
 
 {% endblock %}
