@@ -92,7 +92,26 @@ def clinic_delete(request, id):
 
 
 def doctors(request):
-    doctors = Doctor.objects.all()
+    # Search block
+    form = DoctorsSearchForm(request.GET)
+    if form.is_valid():
+        clinic = form.cleaned_data['clinic']
+        locality = form.cleaned_data['locality']
+        district = form.cleaned_data['district']
+        region = form.cleaned_data['region']
+        if clinic is not None:
+            doctors = Doctor.objects.filter(clinic = clinic)
+        elif locality is not None:
+            doctors = Doctor.objects.filter(clinic__locality = locality)
+        elif district is not None:
+            doctors = Doctor.objects.filter(clinic__locality__district = district)
+        elif region is not None:
+            doctors = Doctor.objects.filter(clinic__locality__district__region = region)
+        else:
+            doctors = Doctor.objects.all()
+    else:
+        doctors = Doctor.objects.all()
+    # Pagination block
     pages = Paginator(doctors, 30)
     current_page = request.GET.get('page', 1)
     try:
@@ -103,7 +122,7 @@ def doctors(request):
         current_page = 1
     doctors = pages.page(current_page) 
     num_pages = pages.page_range
-    context = {'doctors': doctors, 'num_pages': num_pages, 'current_page': current_page}
+    context = {'doctors': doctors, 'num_pages': num_pages, 'current_page': current_page, 'form': form}
     return render(request, 'registry/doctors.html', context)
 
 
