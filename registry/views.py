@@ -174,7 +174,6 @@ def doctor_delete(request, id):
 def patients(request):
     form = PatientsSearchForm(request.GET)
     if form.is_valid():
-        print(form.cleaned_data)
         lastname = form.cleaned_data['lastname']
         firstname = form.cleaned_data['firstname']
         patronymic = form.cleaned_data['patronymic']
@@ -258,7 +257,29 @@ def patient_print(request, id):
     return render(request, 'registry/patient_certificate.html', context)
 
 def immunizations(request):
-    immunizations = Immunization.objects.all()
+    # Search block
+    form = ImmunizationsSearchForm(request.GET)
+    if form.is_valid():
+        doctor = form.cleaned_data['doctor']
+        clinic = form.cleaned_data['clinic']
+        locality = form.cleaned_data['locality']
+        district = form.cleaned_data['district']
+        region = form.cleaned_data['region']
+        if doctor is not None:
+            immunizations = Immunization.objects.filter(doctor = doctor)
+        if clinic is not None:
+            immunizations = Immunization.objects.filter(doctor__clinic = clinic)
+        elif locality is not None:
+            immunizations = Immunization.objects.filter(doctor__clinic__locality = locality)
+        elif district is not None:
+            immunizations = Immunization.objects.filter(doctor__clinic__locality__district = district)
+        elif region is not None:
+            immunizations = Immunization.objects.filter(doctor__clinic__locality__district__region = region)
+        else:
+            immunizations = Immunization.objects.all()
+    else:
+        immunizations = Immunization.objects.all()
+    # Pagination block
     pages = Paginator(immunizations, 30)
     current_page = request.GET.get('page', 1)
     try:
@@ -269,7 +290,7 @@ def immunizations(request):
         current_page = 1
     immunizations = pages.page(current_page) 
     num_pages = pages.page_range
-    context = {'immunizations': immunizations, 'num_pages': num_pages, 'current_page': current_page}
+    context = {'immunizations': immunizations, 'num_pages': num_pages, 'current_page': current_page, 'form': form}
     return render(request, 'registry/immunizations.html', context)
 
 def immunization(request, id):

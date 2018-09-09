@@ -9,6 +9,16 @@
 
 <h2>Щеплення</h2>
 
+<p></p>
+<form action="" method="get">
+    <table>
+        {{ form }}
+    <tr>
+        <input type="submit" value="Фільтрувати">
+    </tr>
+    </table>
+</form>
+<p></p>
 
 <table class="table table-bordered">
     <thead>
@@ -52,5 +62,8 @@
         {% endif %}
     {% endfor %}
 </ul>
+
+    {% load static %}
+    <script src="{% static 'js/region-district-locality-clinic-doctor.js' %}"></script>
 
 {% endblock %}
