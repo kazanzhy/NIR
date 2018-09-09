@@ -10,10 +10,9 @@
 <p></p>
 
 <a href="{% url 'patient_add' %}"><button class="btn btn-primary btn-bg " name="patient_add">Додати пацієнта</button></a>
-<p></p>
 
-<form action="" method="post">
-    {% csrf_token %}
+<p></p>
+<form action="" method="get">
     {{ form }}
     <input type="submit" value="Фільтрувати">
 </form>

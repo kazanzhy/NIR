@@ -172,8 +172,17 @@ def doctor_delete(request, id):
 
 
 def patients(request):
-    form = PatientsSearchForm()
-    patients = Patient.objects.all()
+    form = PatientsSearchForm(request.GET)
+    if form.is_valid():
+        print(form.cleaned_data)
+        lastname = form.cleaned_data['lastname']
+        firstname = form.cleaned_data['firstname']
+        patronymic = form.cleaned_data['patronymic']
+        patients = Patient.objects.filter(lastname__lastname__icontains = lastname, 
+                                        firstname__firstname__icontains = firstname,
+                                        patronymic__patronymic__icontains = patronymic)
+    else:
+        patients = Patient.objects.all()
     pages = Paginator(patients, 30)
     current_page = request.GET.get('page', 1)
     try:
@@ -228,8 +237,8 @@ def patient_update(request, id):
             patient.save()
             return redirect(reverse('patient', args=[patient.pk]))
     else:
-        initial = {'lastname':patient.lastname, 'firstname':patient.firstname, 'patronymic':patient.patronymic, 
-                    'sex':patient.sex, 'birth':patient.birth, 'phone':patient.phone}
+        initial = {'lastname': patient.lastname, 'firstname': patient.firstname, 'patronymic': patient.patronymic, 
+                    'sex': patient.sex, 'birth': patient.birth, 'phone': patient.phone}
         form = PatientAddForm(initial = initial)
     context = {'form': form}
     return render(request, 'registry/patient_add.html', context)
