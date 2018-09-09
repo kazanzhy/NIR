@@ -305,7 +305,24 @@ def immunization_print(request, id):
     return render(request, 'registry/immunization_certificate.html', context)
 
 def logbook(request):
-    logbook = Logbook.objects.all()
+    form = LogbookSearchForm(request.GET)
+    if form.is_valid():
+        clinic = form.cleaned_data['clinic']
+        locality = form.cleaned_data['locality']
+        district = form.cleaned_data['district']
+        region = form.cleaned_data['region']
+        if clinic is not None:
+            logbook = Logbook.objects.filter(clinic = clinic)
+        elif locality is not None:
+            logbook = Logbook.objects.filter(clinic__locality = locality)
+        elif district is not None:
+            logbook = Logbook.objects.filter(clinic__locality__district = district)
+        elif region is not None:
+            logbook = Logbook.objects.filter(clinic__locality__district__region = region)
+        else:
+            logbook = Logbook.objects.all()
+    else:
+        logbook = Logbook.objects.all()
     pages = Paginator(logbook, 30)
     current_page = request.GET.get('page', 1)
     try:
@@ -316,7 +333,7 @@ def logbook(request):
         current_page = 1
     logbook = pages.page(current_page) 
     num_pages = pages.page_range
-    context = {'logbook': logbook, 'num_pages': num_pages, 'current_page': current_page}
+    context = {'logbook': logbook, 'num_pages': num_pages, 'current_page': current_page, 'form': form}
     return render(request, 'registry/logbook.html', context)
 
 

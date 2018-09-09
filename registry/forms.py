@@ -19,9 +19,15 @@ class DoctorsSearchForm(forms.Form):
     clinic = forms.ModelChoiceField(label='Клініка', queryset = Clinic.objects.all(), required=False)
 
 class PatientsSearchForm(forms.Form):
-    lastname = forms.CharField(label='Фамілія', max_length=32)
-    firstname = forms.CharField(label='Ім\'я', max_length=32)
-    patronymic = forms.CharField(label='По-батькові', max_length=32)
+    lastname = forms.CharField(label='Фамілія', max_length=32, required=False)
+    firstname = forms.CharField(label='Ім\'я', max_length=32, required=False)
+    patronymic = forms.CharField(label='По-батькові', max_length=32, required=False)
+
+class LogbookSearchForm(forms.Form):
+    region = forms.ModelChoiceField(label='Область', queryset = Region.objects.all(), required=False)
+    district = forms.ModelChoiceField(label='Район', queryset = District.objects.all(), required=False)
+    locality = forms.ModelChoiceField(label='Населений пункт', queryset = Locality.objects.all(), required=False)
+    clinic = forms.ModelChoiceField(label='Клініка', queryset = Clinic.objects.all(), required=False)
 
 class ClinicAddForm(forms.Form):
     region = forms.ModelChoiceField(label='Область', queryset = Region.objects.all())

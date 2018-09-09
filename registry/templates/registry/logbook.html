@@ -8,6 +8,12 @@
 {% block content %}
 
 <h2>Журнал обліку</h2>
+<p></p>
+
+<form action="" method="get">
+    {{ form }}
+    <input type="submit" value="Фільтрувати">
+</form>
 
 <p></p>
 
@@ -45,5 +51,8 @@
         {% endif %}
     {% endfor %}
 </ul>
+
+    {% load static %}
+    <script src="{% static 'js/region-district-locality-clinic.js' %}"></script>
 
 {% endblock %}
