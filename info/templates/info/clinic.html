@@ -26,15 +26,17 @@
     <tr>
         <th>Вакцина</th>
         <th>Серія</th>
-        <th>Кількість доз</th>
+        <th>Термін придатності</th>
+        <th>Наявно доз</th>
     </tr>
     </thead>
     <tbody>
-    {% for vaccine in vaccines %}
+    {% for log in logbook %}
     <tr>
-        <td><a href="{{ vaccine.series.vaccine.get_info_url }}">{{ vaccine.series.vaccine }}</a></td>
-        <td>{{ vaccine.series }}</td>
-        <td>{{ vaccine.doses }}</td>
+        <td><a href="{{ log.series.vaccine.get_info_url }}">{{ log.series.vaccine }}</a></td>
+        <td>{{ log.series }}</td>
+        <td>{{ log.series.expiration }}</td>
+        <td>{{ log.balance }}</td>
     </tr>
     {% endfor %}
     </tbody>

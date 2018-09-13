@@ -43,8 +43,8 @@ def clinics(request):
 
 def clinic(request, id):
     clinic = get_object_or_404(Clinic, pk=id)
-    vaccines = Logbook.objects.filter(clinic=clinic)
-    context = {'clinic': clinic, 'vaccines': vaccines}
+    logbook = Logbook.objects.filter(clinic=clinic, balance__gt=0)
+    context = {'clinic': clinic, 'logbook': logbook}
     return render(request, 'info/clinic.html', context)
 
 

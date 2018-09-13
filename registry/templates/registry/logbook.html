@@ -22,9 +22,11 @@
     <tr>
         <th>Клініка</th>
         <th>Вакцина</th>
-        <th>Серія</th>
         <th>Кількість доз</th>
-        <th>Дата</th>
+        <th>Серія</th>
+        <th>Термін придатності</th>
+        <th>Дата отримання</th>
+        <th>Залишок</th>
     </tr>
     </thead>
     <tbody>
@@ -32,9 +34,11 @@
     <tr>
         <td><a href="{{ log.clinic.get_registry_url }}">{{ log.clinic }}</a></td>
         <td><a href="{{ log.series.vaccine.get_info_url }}">{{ log.series.vaccine }}</a></td>
-        <td>{{ log.series }}</td>
         <td>{{ log.doses }}</td>
+        <td>{{ log.series }}</td>
+        <td>{{ log.series.expiration }}</td>
         <td>{{ log.date }}</td>
+        <td>{{ log.balance }}</td>
     </tr>
     {% endfor %}
     </tbody>

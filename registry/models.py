@@ -202,8 +202,9 @@ class Logbook(models.Model):
     """
     clinic = models.ForeignKey(Clinic, on_delete=models.SET_NULL, null=True, blank=True)
     series = models.ForeignKey(Series, on_delete=models.SET_NULL, null=True, blank=True)
-    doses = models.IntegerField(null=True, blank=True)
+    doses = models.PositiveSmallIntegerField(null=True, blank=True)
     arrival = models.BooleanField(null=True, blank=True)
+    balance = models.PositiveSmallIntegerField(null=True, blank=True)
     date = models.DateField(null=True, blank=True)
     def __str__(self):
         return '{}: {} #{}. {}'.format(self.clinic, self.series, self.doses, self.date)
