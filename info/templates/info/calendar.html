@@ -7,38 +7,58 @@
 
 {% block content %}
 
-    <h1>Національний календар вакцинацій</h1>
-
-<p></p>
-
-<table class="table table-striped">
+<table class="table table-condensed">
+    <caption align="bottom">
+        <span class="label label-primary">Вакцинація</span>
+        <span class="label label-info">Ревакцинація</span>
+    </caption>
     <thead>
     <tr>
-        <th style="width:20%">Хвороба</th>
-        <th style="width:7%">1<br>доба</th>
-        <th style="width:7%">3-5<br>діб</th>
-        <th style="width:7%">2<br>місяці</th>
-        <th style="width:7%">4<br>місяці</th>
-        <th style="width:7%">6<br>місяців</th>
-        <th style="width:7%">12<br>місяців</th>
-        <th style="width:7%">18<br>місяців</th>
-        <th style="width:7%">6<br>років</th>
-        <th style="width:7%">14<br>років</th>
-        <th style="width:7%">16<br>років</th>
-        <th style="width:10%">Кожні 10<br>років</th>
+    </tr>
+    <tr>
+        <th rowspan="2">Хвороба</th>
+        <th colspan="2">Дні</th>
+        <th colspan="9">Місяці</th>
+        <th colspan="5">Роки</th>
+    </tr>
+    <tr>
+        <th>1</th>
+        <th>3-5</th>
+        <th>2</th>
+        <th>3</th>
+        <th>4</th>
+        <th>6</th>
+        <th>9</th>
+        <th>12</th>
+        <th>14</th>
+        <th>15</th>
+        <th>18</th>
+        <th>6</th>
+        <th>11</th>
+        <th>14</th>
+        <th>16</th>
+        <th>26</th>
     </tr>
     </thead>
     <tbody>
+    <tr class="success">
+        <th colspan="17"><center><h4>Національний календар щеплень</h4></center></td>
+    </tr>
     <tr>
         <td><a href="{% url 'info_vaccines' %}?disease=57">Гепатит В</a></td>
-        <td><span class="label label-primary">V1</span></td><td></td>
-        <td><span class="label label-primary">V2</span></td><td></td>
-        <td><span class="label label-primary">V3</span></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        <td><span class="label label-primary">V1</span></td>
+        <td></td>
+        <td><span class="label label-primary">V2</span></td>
+        <td></td><td></td>
+        <td><span class="label label-primary">V3</span></td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
     </tr>
     <tr>
         <td><a href="{% url 'info_vaccines' %}?disease=62">Туберкульоз</a></td>
-        <td></td><td><span class="label label-primary">V1</span></td><td></td>
-        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        <td></td>
+        <td><span class="label label-primary">V1</span></td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
     </tr>
     <tr>
         <td>
@@ -46,44 +66,142 @@
         <a href="{% url 'info_vaccines' %}?disease=47">Паротит</a>,
         <a href="{% url 'info_vaccines' %}?disease=48">Краснуха</a>
         </td>
-        <td></td><td></td><td></td><td></td><td></td><td><span class="label label-primary">V1</span></td><td></td>
-        <td><span class="label label-info">RV1</span></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        <td><span class="label label-primary">V1</span>
+        </td><td></td><td></td><td></td>
+        <td><span class="label label-info">RV1</span></td>
+        <td></td><td></td><td></td><td></td>
     </tr>
     <tr>
         <td>
         <a href="{% url 'info_vaccines' %}?disease=51">Дифтерія</a>,
         <a href="{% url 'info_vaccines' %}?disease=52">Правець</a>
         </td>
-        <td></td><td></td><td><span class="label label-primary">V1</span></td>
+        <td></td><td></td>
+        <td><span class="label label-primary">V1</span></td>
+        <td></td>
         <td><span class="label label-primary">V2</span></td>
-        <td><span class="label label-primary">V3</span></td><td></td>
+        <td><span class="label label-primary">V3</span></td>
+        <td></td><td></td><td></td><td></td>
         <td><span class="label label-info">RV1</span></td>
-        <td><span class="label label-info">RV2</span></td><td></td>
+        <td><span class="label label-info">RV2</span></td>
+        <td></td><td></td>
         <td><span class="label label-info">RV3</span></td>
-        <td><span class="label label-info">RV...</span></td>
+        <td><span class="label label-info">RV4...</span></td>
     </tr>
     <tr>
         <td><a href="{% url 'info_vaccines' %}?disease=50">Кашлюк</a></td>
         <td></td><td></td><td><span class="label label-primary">V1</td>
+        <td></td>
         <td><span class="label label-primary">V2</span></td>
-        <td><span class="label label-primary">V3</span></td><td></td>
-        <td><span class="label label-info">RV1</span></td><td></td><td></td><td></td><td></td>
+        <td><span class="label label-primary">V3</span></td>
+        <td></td><td></td><td></td><td></td>
+        <td><span class="label label-info">RV1</span></td>
+        <td></td><td></td><td></td><td></td><td></td>
     </tr>
     <tr>
         <td><a href="{% url 'info_vaccines' %}?disease=53">Поліомієліт</a></td>
         <td></td><td></td><td><span class="label label-primary">ІПВ</span></td>
+        <td></td>
         <td><span class="label label-primary">ІПВ</span></td>
-        <td><span class="label label-info">ОПВ</span></td><td></td>
+        <td><span class="label label-primary">ОПВ</span></td>
+        <td></td><td></td><td></td><td></td>
         <td><span class="label label-info">ОПВ</span></td>
         <td><span class="label label-info">ОПВ</span></td>
-        <td><span class="label label-info">ОПВ</span></td><td></td><td></td>
+        <td></td>
+        <td><span class="label label-info">ОПВ</span></td>
+        <td></td><td></td>
     </tr>
     <tr>
         <td><a href="{% url 'info_vaccines' %}?disease=55">ХІБ-інфекція</a></td>
-        <td></td><td></td><td><span class="label label-primary">V1</span></td>
-        <td><span class="label label-primary">V2</span></td><td></td>
-        <td><span class="label label-primary">V3</span></td><td></td><td></td><td></td><td></td><td></td>
+        <td></td><td></td>
+        <td><span class="label label-primary">V1</span></td>
+        <td></td>
+        <td><span class="label label-primary">V2</span></td>
+        <td></td><td></td>
+        <td><span class="label label-info">RV</span></td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
     </tr>
+    <tr class="warning" >
+        <th colspan="17"><center><h4>Рекомендовано</h4></center></td>
+    </tr>
+    <tr>
+        <td><a href="{% url 'info_vaccines' %}?disease=55">Ротавірусна інфекція</a></td>
+        <td></td><td></td>
+        <td><span class="label label-primary">V1</span></td>
+        <td><span class="label label-primary">V2</span></td>
+        <td></td><td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    </tr>
+    <tr>
+        <td><a href="{% url 'info_vaccines' %}?disease=55">Пневмококова інфекція</a></td>
+        <td></td><td></td>
+        <td><span class="label label-primary">V1</span></td>
+        <td></td>
+        <td><span class="label label-primary">V2</span></td>
+        <td><span class="label label-primary">V3</span></td>
+        <td></td><td></td><td></td>
+        <td><span class="label label-info">RV</span></td>
+        <td></td><td></td><td></td><td></td><td></td><td></td>
+    </tr>
+    <tr>
+        <td><a href="{% url 'info_vaccines' %}?disease=55">Менінгококова інфекція</a></td>
+        <td></td><td></td><td></td><td></td><td></td><td></td>
+        <td><span class="label label-primary">V1</span></td>
+        <td><span class="label label-primary">V2</span></td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    </tr>
+    <tr>
+        <td><a href="{% url 'info_vaccines' %}?disease=55">Вітряна оспа</a></td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        <td><span class="label label-primary">V1</span></td>
+        <td><span class="label label-primary">V2</span></td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    </tr>
+    <tr>
+        <td><a href="{% url 'info_vaccines' %}?disease=55">Гепатит A</a></td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        <td><span class="label label-primary">V1</span></td>
+        <td></td><td></td>
+        <td><span class="label label-primary">V2</span></td>
+        <td></td><td></td><td></td><td></td><td></td>
+    </tr>
+    <tr>
+        <td><a href="{% url 'info_vaccines' %}?disease=55">Папіломавірусна інфекція</a></td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td><td></td><td></td>
+        <td><span class="label label-primary">V1</span><span class="label label-primary">V2</span></td>
+        <td></td><td></td><td></td>
+    </tr>
+    <tr>
+        <td><a href="{% url 'info_vaccines' %}?disease=55">Грип</a></td>
+        <td></td><td></td><td></td><td></td><td></td>
+        <td colspan="11"><span class="label label-primary">Щорічно</span></td>
+    </tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     </tbody>
 </table>
 
